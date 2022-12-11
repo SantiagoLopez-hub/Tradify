@@ -13,6 +13,8 @@ import javax.persistence.Id;
 @Entity
 public class Share {
     @Id
+    private Integer id;
+
     private String symbol;
     private String name;
     private String sector;

@@ -14,8 +14,9 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-    private String email;
+    private Integer id;
 
+    private String email;
     private String password;
     private String firstName;
     private String lastName;
@@ -27,4 +28,17 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> role = new ArrayList<>();
+
+    public User(Integer id, String email, String password, String firstName, String lastName, String phoneNumber, String address, String city, String postCode, String country) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.city = city;
+        this.postCode = postCode;
+        this.country = country;
+    }
 }
