@@ -1,20 +1,23 @@
 package com.tradify_markets.tradify;
 
+import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.repository.RoleRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class TradifyApplication {
-    @Autowired
     private final UserRepository userRepository;
 
-    public TradifyApplication(UserRepository userRepository) {
+    private final RoleRepository roleRepository;
+
+    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public static void main(String[] args) {
@@ -24,7 +27,20 @@ public class TradifyApplication {
     @Bean
     InitializingBean sendDatabase() {
         return () -> {
-            // Create a new user with builder pattern
+            roleRepository.save(
+                    Role.builder()
+                            .id(1)
+                            .name("Admin")
+                            .build()
+            );
+            roleRepository.save(
+                    Role.builder()
+                            .id(2)
+                            .name("User")
+                            .build()
+            );
+
+
             userRepository.save(
                     User.builder()
                             .id(1)
@@ -37,6 +53,7 @@ public class TradifyApplication {
                             .city("London")
                             .postCode("E1 6D")
                             .country("UK")
+                            .role(roleRepository.findById(1).get())
                             .build()
             );
 
@@ -52,6 +69,7 @@ public class TradifyApplication {
                             .city("Paris")
                             .postCode("E 6BD")
                             .country("UK")
+                            .role(roleRepository.findById(2).get())
                             .build()
             );
             userRepository.save(

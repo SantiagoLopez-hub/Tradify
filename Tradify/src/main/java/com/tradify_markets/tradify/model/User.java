@@ -27,5 +27,6 @@ public class User {
     private String country;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
     private Role role;
 }
