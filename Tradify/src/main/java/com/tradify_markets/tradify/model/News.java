@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Announcement {
+public class News {
     @Id
     private Integer id;
 

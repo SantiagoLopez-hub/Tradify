@@ -1,10 +1,10 @@
 package com.tradify_markets.tradify;
 
-import com.tradify_markets.tradify.model.Announcement;
+import com.tradify_markets.tradify.model.News;
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.model.User;
-import com.tradify_markets.tradify.repository.AnnouncementRepository;
+import com.tradify_markets.tradify.repository.NewsRepository;
 import com.tradify_markets.tradify.repository.RoleRepository;
 import com.tradify_markets.tradify.repository.ShareRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
@@ -20,13 +20,13 @@ public class TradifyApplication {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final ShareRepository shareRepository;
-    private final AnnouncementRepository announcementRepository;
+    private final NewsRepository newsRepository;
 
-    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, AnnouncementRepository announcementRepository) {
+    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository announcementRepository, NewsRepository newsRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.shareRepository = shareRepository;
-        this.announcementRepository = announcementRepository;
+        this.newsRepository = newsRepository;
     }
 
     public static void main(String[] args) {
@@ -124,8 +124,8 @@ public class TradifyApplication {
                             .build()
             );
 
-            announcementRepository.save(
-                    Announcement.builder()
+            newsRepository.save(
+                    News.builder()
                             .id(1)
                             .title("Test")
                             .content("Test")
@@ -135,7 +135,7 @@ public class TradifyApplication {
                     Share.builder()
                             .id(1)
                             .price(100)
-                            .announcements(List.of(announcementRepository.findById(1).get()))
+                            .news(List.of(newsRepository.findById(1).get()))
                             .build()
             );
         };

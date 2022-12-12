@@ -49,6 +49,6 @@ public class Share {
     private String totalCash;
     private String totalDebt;
 
-    @OneToMany(targetEntity = Announcement.class, cascade = CascadeType.ALL)
-    private List<Announcement> announcements = new ArrayList<>();
+    @OneToMany(targetEntity = News.class, cascade = CascadeType.ALL)
+    private List<News> news = new ArrayList<>();
 }
