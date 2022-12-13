@@ -22,7 +22,7 @@ public class TradifyApplication {
     private final ShareRepository shareRepository;
     private final NewsRepository newsRepository;
 
-    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository announcementRepository, NewsRepository newsRepository) {
+    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository newsRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.shareRepository = shareRepository;
