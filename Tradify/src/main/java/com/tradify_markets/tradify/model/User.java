@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +17,18 @@ public class User {
     @Id
     private Integer id;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Order> orders;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<UserShare> userShares;
+
     @Column(unique = true)
     private String email;
+
     private String password;
     private String firstName;
     private String lastName;
@@ -26,8 +37,4 @@ public class User {
     private String city;
     private String postCode;
     private String country;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private Role role;
 }

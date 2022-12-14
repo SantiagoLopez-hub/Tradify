@@ -18,6 +18,9 @@ public class Share {
     @Id
     private Integer id;
 
+    @OneToMany(targetEntity = News.class, cascade = CascadeType.ALL)
+    private List<News> news = new ArrayList<>();
+
     private String symbol;
     private Integer price;
     private String name;
@@ -48,7 +51,4 @@ public class Share {
     private String revenuePerShare;
     private String totalCash;
     private String totalDebt;
-
-    @OneToMany(targetEntity = News.class, cascade = CascadeType.ALL)
-    private List<News> news = new ArrayList<>();
 }
