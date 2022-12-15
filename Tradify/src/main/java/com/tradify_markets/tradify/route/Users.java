@@ -26,7 +26,7 @@ public class Users {
         this.orderRepository = orderRepository;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<User> users() {
         return userRepository.findAll();
     }
