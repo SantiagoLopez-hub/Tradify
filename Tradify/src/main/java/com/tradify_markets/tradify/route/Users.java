@@ -1,8 +1,10 @@
 package com.tradify_markets.tradify.route;
 
+import com.tradify_markets.tradify.model.Order;
 import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.model.UserShare;
+import com.tradify_markets.tradify.repository.OrderRepository;
 import com.tradify_markets.tradify.repository.ShareRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
 import com.tradify_markets.tradify.repository.UserShareRepository;
@@ -17,12 +19,14 @@ public class Users {
     private final UserRepository userRepository;
     private final ShareRepository shareRepository;
     private final UserShareRepository userShareRepository;
+    private final OrderRepository orderRepository;
 
     public Users(UserRepository userRepository,
-                 ShareRepository shareRepository, UserShareRepository userShareRepository) {
+                 ShareRepository shareRepository, UserShareRepository userShareRepository, OrderRepository orderRepository) {
         this.userRepository = userRepository;
         this.shareRepository = shareRepository;
         this.userShareRepository = userShareRepository;
+        this.orderRepository = orderRepository;
     }
 
     @GetMapping("")
@@ -38,6 +42,11 @@ public class Users {
     @GetMapping("/{id}/shares")
     public UserShare userShares(@PathVariable Integer id) {
         return userShareRepository.findByUser(userRepository.findById(id).get());
+    }
+
+    @GetMapping("/{id}/orders")
+    public Order userOrders(@PathVariable Integer id) {
+        return orderRepository.findByUser(userRepository.findById(id).get());
     }
 
     @GetMapping("/share")
