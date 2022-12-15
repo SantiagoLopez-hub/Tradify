@@ -1,13 +1,7 @@
 package com.tradify_markets.tradify;
 
-import com.tradify_markets.tradify.model.News;
-import com.tradify_markets.tradify.model.Role;
-import com.tradify_markets.tradify.model.Share;
-import com.tradify_markets.tradify.model.User;
-import com.tradify_markets.tradify.repository.NewsRepository;
-import com.tradify_markets.tradify.repository.RoleRepository;
-import com.tradify_markets.tradify.repository.ShareRepository;
-import com.tradify_markets.tradify.repository.UserRepository;
+import com.tradify_markets.tradify.model.*;
+import com.tradify_markets.tradify.repository.*;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,12 +15,18 @@ public class TradifyApplication {
     private final RoleRepository roleRepository;
     private final ShareRepository shareRepository;
     private final NewsRepository newsRepository;
+    private final OrderRepository orderRepository;
+    private final OrderTypeRepository orderTypeRepository;
+    private final UserShareRepository userShareRepository;
 
-    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository newsRepository) {
+    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository newsRepository, OrderRepository orderRepository, OrderTypeRepository orderTypeRepository, UserShareRepository userShareRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.shareRepository = shareRepository;
         this.newsRepository = newsRepository;
+        this.orderRepository = orderRepository;
+        this.orderTypeRepository = orderTypeRepository;
+        this.userShareRepository = userShareRepository;
     }
 
     public static void main(String[] args) {
@@ -135,7 +135,35 @@ public class TradifyApplication {
                     Share.builder()
                             .id(1)
                             .price(100)
+                            .name("Coca Cola")
                             .news(List.of(newsRepository.findById(1).get()))
+                            .build()
+            );
+
+            orderTypeRepository.save(
+                    OrderType.builder()
+                            .id(1)
+                            .name("Buy")
+                            .build()
+            );
+
+            orderRepository.save(
+                    Order.builder()
+                            .id(1)
+                            .user(userRepository.findById(1).get())
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .price(56.21)
+                            .quantity(10)
+                            .build()
+            );
+
+            userShareRepository.save(
+                    UserShare.builder()
+                            .id(1)
+                            .user(userRepository.findById(1).get())
+                            .share(shareRepository.findById(1).get())
+                            .quantity(10)
                             .build()
             );
         };

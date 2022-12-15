@@ -26,7 +26,7 @@ public class Order {
     private OrderType orderType;
 
     private Integer quantity;
-    private Integer price;
+    private double price;
     private String date;
     private Boolean isExecuted;
 }

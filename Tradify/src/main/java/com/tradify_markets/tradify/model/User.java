@@ -20,11 +20,11 @@ public class User {
     @OneToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Order> orders;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<UserShare> userShares;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Order> orders;
+//
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<UserShare> userShares;
 
     @Column(unique = true)
     private String email;
