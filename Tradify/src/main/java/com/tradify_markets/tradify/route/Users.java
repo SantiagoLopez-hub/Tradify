@@ -1,11 +1,9 @@
 package com.tradify_markets.tradify.route;
 
 import com.tradify_markets.tradify.model.Order;
-import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.model.UserShare;
 import com.tradify_markets.tradify.repository.OrderRepository;
-import com.tradify_markets.tradify.repository.ShareRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
 import com.tradify_markets.tradify.repository.UserShareRepository;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +15,13 @@ import java.util.Optional;
 @RequestMapping("/users")
 public class Users {
     private final UserRepository userRepository;
-    private final ShareRepository shareRepository;
     private final UserShareRepository userShareRepository;
     private final OrderRepository orderRepository;
 
     public Users(UserRepository userRepository,
-                 ShareRepository shareRepository, UserShareRepository userShareRepository, OrderRepository orderRepository) {
+                 UserShareRepository userShareRepository,
+                 OrderRepository orderRepository) {
         this.userRepository = userRepository;
-        this.shareRepository = shareRepository;
         this.userShareRepository = userShareRepository;
         this.orderRepository = orderRepository;
     }
@@ -34,9 +31,25 @@ public class Users {
         return userRepository.findAll();
     }
 
+    @PostMapping("/create")
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
+
     @GetMapping("/{id}")
     public Optional<User> user(@PathVariable Integer id) {
         return userRepository.findById(id);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Integer id, @RequestBody User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Integer id) {
+        userRepository.deleteById(id);
     }
 
     @GetMapping("/{id}/shares")
@@ -47,10 +60,5 @@ public class Users {
     @GetMapping("/{id}/orders")
     public Order userOrders(@PathVariable Integer id) {
         return orderRepository.findByUser(userRepository.findById(id).get());
-    }
-
-    @GetMapping("/share")
-    public List<Share> share() {
-        return shareRepository.findAll();
     }
 }
