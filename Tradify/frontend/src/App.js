@@ -1,29 +1,29 @@
 import React from 'react';
-import ApiCall from "./Components/ApiCall";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from "react-router-dom";
+import Home from "./Pages/Home";
+import Users from "./Pages/Users";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 import './App.css';
 
 const App = () => {
-    const [users, isLoading, error] = ApiCall('/users');
-
-    if(error) {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    {error}, Please try again later.
-                </header>
-            </div>
-        );
-    }
-
     return (
-        <div className="App">
-            <header className="App-header">
-                Learn React
-                <ul>
-                    {isLoading ? <p>Loading...</p> : users.map((user, i) => <li key={i}>{user.email}</li>)}
-                </ul>
-            </header>
-        </div>
+        <Router>
+            <div className="App">
+                <Header />
+
+                <Routes>
+                    <Route exact path="/" element={<Home />} />
+                    <Route exact path="/users" element={<Users />} />
+                </Routes>
+
+                <Footer />
+            </div>
+        </Router>
     );
 }
 
