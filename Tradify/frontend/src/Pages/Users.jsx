@@ -1,6 +1,6 @@
 import ApiCall from "../Components/ApiCall";
 
-const Home = () => {
+const Users = () => {
     const [users, isLoading, error] = ApiCall("/users");
 
     if (error) {
@@ -23,4 +23,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Users;
