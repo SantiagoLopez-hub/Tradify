@@ -3,7 +3,19 @@ import ApiCall from "./Components/ApiCall";
 import './App.css';
 
 const App = () => {
-    const [users, isLoading] = ApiCall('/users');
+    const [users, isLoading, error] = ApiCall('/users');
+
+    console.log(error);
+
+    if(error) {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    {error}, Please try again later.
+                </header>
+            </div>
+        )
+    }
 
     return (
         <div className="App">
