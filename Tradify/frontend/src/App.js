@@ -5,8 +5,6 @@ import './App.css';
 const App = () => {
     const [users, isLoading, error] = ApiCall('/users');
 
-    console.log(error);
-
     if(error) {
         return (
             <div className="App">
@@ -14,7 +12,7 @@ const App = () => {
                     {error}, Please try again later.
                 </header>
             </div>
-        )
+        );
     }
 
     return (
