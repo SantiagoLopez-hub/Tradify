@@ -5,7 +5,7 @@ const Header = () => {
         <header className="sticky-top navbar
             border-bottom navbar-expand-lg
             bg-white navbar-light">
-            <h1>Tradify</h1>
+            <h1 className="display-5">Tradify</h1>
 
             <button className="navbar-toggler" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
