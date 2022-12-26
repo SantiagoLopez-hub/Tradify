@@ -50,7 +50,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .withClaim(
                         "roles",
                         user.getAuthorities().stream().map(
-                                GrantedAuthority::getAuthority).collect(Collectors.toList())
+                                GrantedAuthority::getAuthority
+                        ).collect(Collectors.toList())
                 )
                 .sign(alg);
     }
@@ -60,7 +61,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         Map<String, String> output = new HashMap<>();
 
         // Create access token with 15 minute duration
-        output.put("access_token", createToken(user, req,  15 * 60 * 1000));
+        output.put("access_token", createToken(user, req, 15 * 60 * 1000));
 
         // Create refresh token with 1 day duration
         output.put("refresh_token", createToken(user, req, 24 * 60 * 60 * 1000));
