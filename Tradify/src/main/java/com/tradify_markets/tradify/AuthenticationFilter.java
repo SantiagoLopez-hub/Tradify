@@ -2,6 +2,8 @@ package com.tradify_markets.tradify;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,43 +18,53 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
-    public AuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                        req.getParameter("username"),
+                        req.getParameter("password")
+                )
+        );
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-
-        return authenticationManager.authenticate(authenticationToken);
+    protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        new ObjectMapper().writeValue(res.getOutputStream(), createTokens(authResult, req));
     }
 
-    @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        User user = (User) authResult.getPrincipal();
+    public String createToken(User user, HttpServletRequest req, int duration) {
         Algorithm alg = Algorithm.HMAC256("secret".getBytes());
-        String access_token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 600000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
-                .sign(alg);
 
-        String refresh_token = JWT.create()
+        return JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                .withExpiresAt(new Date(System.currentTimeMillis() + duration))
+                .withIssuer(req.getRequestURL().toString())
+                .withClaim(
+                        "roles",
+                        user.getAuthorities().stream().map(
+                                GrantedAuthority::getAuthority).collect(Collectors.toList())
+                )
                 .sign(alg);
+    }
 
-        response.setHeader("access_token", access_token);
-        response.setHeader("refresh_token", refresh_token);
+    public Map<String, String> createTokens(Authentication authResult, HttpServletRequest req) {
+        User user = (User) authResult.getPrincipal();
+        Map<String, String> output = new HashMap<>();
+
+        // Create access token with 15 minute duration
+        output.put("access_token", createToken(user, req,  15 * 60 * 1000));
+
+        // Create refresh token with 1 day duration
+        output.put("refresh_token", createToken(user, req, 24 * 60 * 60 * 1000));
+
+        return output;
     }
 }
