@@ -3,20 +3,19 @@ package com.tradify_markets.tradify;
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.repository.RoleRepository;
-import com.tradify_markets.tradify.repository.UserRepository;
-import org.springframework.beans.factory.InitializingBean;
+import com.tradify_markets.tradify.service.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TradifyApplication {
-    private final UserRepository userRepository;
-
     private final RoleRepository roleRepository;
 
-    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
+    public TradifyApplication(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
 
@@ -25,8 +24,13 @@ public class TradifyApplication {
     }
 
     @Bean
-    InitializingBean sendDatabase() {
-        return () -> {
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CommandLineRunner run(UserService userService) {
+        return args -> {
             roleRepository.save(
                     Role.builder()
                             .id(1)
@@ -40,12 +44,12 @@ public class TradifyApplication {
                             .build()
             );
 
-
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(1)
+                            .username("username")
                             .email("Jhn@gmail.com")
-                            .password("pass3ord")
+                            .password("1234")
                             .firstName("John")
                             .lastName("Doe")
                             .phoneNumber("1234456789")
@@ -56,8 +60,7 @@ public class TradifyApplication {
                             .role(roleRepository.findById(1).get())
                             .build()
             );
-
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(2)
                             .email("Jgohn@gmail.com")
@@ -72,7 +75,7 @@ public class TradifyApplication {
                             .role(roleRepository.findById(2).get())
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(3)
                             .email("Jon@gmail.com")
@@ -86,7 +89,7 @@ public class TradifyApplication {
                             .country("UK")
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(4)
                             .email("Jochbn@gmail.com")
@@ -100,7 +103,7 @@ public class TradifyApplication {
                             .country("UK")
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(5)
                             .email("John@bgmail.com")
