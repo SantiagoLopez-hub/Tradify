@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -41,19 +40,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     }
 
     public String createToken(User user, HttpServletRequest req, int duration) {
-        Algorithm alg = Algorithm.HMAC256("secret".getBytes());
-
         return JWT.create()
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + duration))
                 .withIssuer(req.getRequestURL().toString())
                 .withClaim(
-                        "roles",
+                        "role",
                         user.getAuthorities().stream().map(
                                 GrantedAuthority::getAuthority
-                        ).collect(Collectors.toList())
+                        ).toList().get(0)
                 )
-                .sign(alg);
+                .sign(Algorithm.HMAC256("secret".getBytes()));
     }
 
     public Map<String, String> createTokens(Authentication authResult, HttpServletRequest req) {
