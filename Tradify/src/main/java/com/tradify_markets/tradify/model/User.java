@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +20,15 @@ public class User {
     @Id
     private Integer id;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Role role;
+
+    @Column(unique = true)
+    private String username;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
     private String firstName;
     private String lastName;
@@ -25,8 +37,4 @@ public class User {
     private String city;
     private String postCode;
     private String country;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private Role role;
 }

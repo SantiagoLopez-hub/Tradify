@@ -13,9 +13,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Role {
+public class OrderType {
     @Id
     private Integer id;
-
     private String name;
 }
