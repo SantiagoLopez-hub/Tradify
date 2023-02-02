@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -19,11 +23,8 @@ public class User {
     @OneToOne(fetch = FetchType.EAGER)
     private Role role;
 
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<Order> orders;
-//
-//    @OneToMany(fetch = FetchType.LAZY)
-//    private List<UserShare> userShares;
+    @Column(unique = true)
+    private String username;
 
     @Column(unique = true)
     private String email;

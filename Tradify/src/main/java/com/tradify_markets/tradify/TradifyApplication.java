@@ -1,32 +1,22 @@
 package com.tradify_markets.tradify;
 
-import com.tradify_markets.tradify.model.*;
-import com.tradify_markets.tradify.repository.*;
-import org.springframework.beans.factory.InitializingBean;
+import com.tradify_markets.tradify.model.Role;
+import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.repository.RoleRepository;
+import com.tradify_markets.tradify.service.UserService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class TradifyApplication {
-    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final ShareRepository shareRepository;
-    private final NewsRepository newsRepository;
-    private final OrderRepository orderRepository;
-    private final OrderTypeRepository orderTypeRepository;
-    private final UserShareRepository userShareRepository;
 
-    public TradifyApplication(UserRepository userRepository, RoleRepository roleRepository, ShareRepository shareRepository, NewsRepository newsRepository, OrderRepository orderRepository, OrderTypeRepository orderTypeRepository, UserShareRepository userShareRepository) {
-        this.userRepository = userRepository;
+    public TradifyApplication(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-        this.shareRepository = shareRepository;
-        this.newsRepository = newsRepository;
-        this.orderRepository = orderRepository;
-        this.orderTypeRepository = orderTypeRepository;
-        this.userShareRepository = userShareRepository;
     }
 
     public static void main(String[] args) {
@@ -34,8 +24,13 @@ public class TradifyApplication {
     }
 
     @Bean
-    InitializingBean sendDatabase() {
-        return () -> {
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    CommandLineRunner run(UserService userService) {
+        return args -> {
             roleRepository.save(
                     Role.builder()
                             .id(1)
@@ -49,12 +44,12 @@ public class TradifyApplication {
                             .build()
             );
 
-
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(1)
+                            .username("username")
                             .email("Jhn@gmail.com")
-                            .password("pass3ord")
+                            .password("1234")
                             .firstName("John")
                             .lastName("Doe")
                             .phoneNumber("1234456789")
@@ -65,8 +60,7 @@ public class TradifyApplication {
                             .role(roleRepository.findById(1).get())
                             .build()
             );
-
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(2)
                             .email("Jgohn@gmail.com")
@@ -81,7 +75,7 @@ public class TradifyApplication {
                             .role(roleRepository.findById(2).get())
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(3)
                             .email("Jon@gmail.com")
@@ -95,7 +89,7 @@ public class TradifyApplication {
                             .country("UK")
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(4)
                             .email("Jochbn@gmail.com")
@@ -109,7 +103,7 @@ public class TradifyApplication {
                             .country("UK")
                             .build()
             );
-            userRepository.save(
+            userService.saveUser(
                     User.builder()
                             .id(5)
                             .email("John@bgmail.com")
@@ -121,49 +115,6 @@ public class TradifyApplication {
                             .city("Milan")
                             .postCode("E1 6B")
                             .country("UK")
-                            .build()
-            );
-
-            newsRepository.save(
-                    News.builder()
-                            .id(1)
-                            .title("Test")
-                            .content("Test")
-                            .build()
-            );
-            shareRepository.save(
-                    Share.builder()
-                            .id(1)
-                            .price(100)
-                            .name("Coca Cola")
-                            .news(List.of(newsRepository.findById(1).get()))
-                            .build()
-            );
-
-            orderTypeRepository.save(
-                    OrderType.builder()
-                            .id(1)
-                            .name("Buy")
-                            .build()
-            );
-
-            orderRepository.save(
-                    Order.builder()
-                            .id(1)
-                            .user(userRepository.findById(1).get())
-                            .share(shareRepository.findById(1).get())
-                            .orderType(orderTypeRepository.findById(1).get())
-                            .price(56.21)
-                            .quantity(10)
-                            .build()
-            );
-
-            userShareRepository.save(
-                    UserShare.builder()
-                            .id(1)
-                            .user(userRepository.findById(1).get())
-                            .share(shareRepository.findById(1).get())
-                            .quantity(10)
                             .build()
             );
         };

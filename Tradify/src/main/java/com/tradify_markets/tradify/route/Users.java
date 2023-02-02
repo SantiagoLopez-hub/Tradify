@@ -6,25 +6,20 @@ import com.tradify_markets.tradify.model.UserShare;
 import com.tradify_markets.tradify.repository.OrderRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
 import com.tradify_markets.tradify.repository.UserShareRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class Users {
     private final UserRepository userRepository;
     private final UserShareRepository userShareRepository;
     private final OrderRepository orderRepository;
-
-    public Users(UserRepository userRepository,
-                 UserShareRepository userShareRepository,
-                 OrderRepository orderRepository) {
-        this.userRepository = userRepository;
-        this.userShareRepository = userShareRepository;
-        this.orderRepository = orderRepository;
-    }
 
     @GetMapping
     public List<User> users() {
