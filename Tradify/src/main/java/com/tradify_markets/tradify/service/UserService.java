@@ -26,6 +26,10 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
