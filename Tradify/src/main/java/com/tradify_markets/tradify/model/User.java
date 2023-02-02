@@ -20,6 +20,9 @@ public class User {
     @Id
     private Integer id;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    private Role role;
+
     @Column(unique = true)
     private String username;
 
@@ -34,8 +37,4 @@ public class User {
     private String city;
     private String postCode;
     private String country;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private Role role;
 }
