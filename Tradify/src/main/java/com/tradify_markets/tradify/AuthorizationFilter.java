@@ -19,13 +19,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Class code taken from Amigoscode:
+ * https://www.youtube.com/watch?v=VVn9OG9nfH0
+ */
+
 public class AuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorizationHeader = request.getHeader("Authorization");
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")
-                && !(request.getServletPath().equals("/login") || request.getServletPath().equals("/register"))) {
+                && !(request.getServletPath().equals("/login") ||
+                request.getServletPath().equals("/register") ||
+                request.getServletPath().equals("/jwt/refresh"))) {
             decodeJWT(filterChain, request, response, authorizationHeader);
 
             return;

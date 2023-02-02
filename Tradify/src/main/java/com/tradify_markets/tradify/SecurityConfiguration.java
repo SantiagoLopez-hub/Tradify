@@ -32,7 +32,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable();
 
         httpSecurity.sessionManagement().sessionCreationPolicy(STATELESS);
-        httpSecurity.authorizeRequests().antMatchers("/login/**", "/register/**").permitAll();
+        httpSecurity.authorizeRequests().antMatchers("/login/**", "/register/**", "/jwt/refresh/**").permitAll();
         httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/users/**").hasAuthority("Admin");
         httpSecurity.authorizeRequests().anyRequest().authenticated();
 
