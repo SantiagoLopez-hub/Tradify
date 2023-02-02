@@ -1,6 +1,8 @@
 package com.tradify_markets.tradify.service;
 
+import com.tradify_markets.tradify.model.Order;
 import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.model.UserShare;
 import com.tradify_markets.tradify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,13 +15,21 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final UserShareService userShareService;
+    private final OrderService orderService;
+
     private final PasswordEncoder passwordEncoder;
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
     public User saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -28,6 +38,27 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public User findById(Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public User updateUser(Integer id, User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
+        userRepository.deleteById(id);
+    }
+
+    public UserShare userShares(Integer id) {
+        return userShareService.findByUser(findById(id).getId());
+    }
+
+    public Order userOrders(Integer id) {
+        return orderService.findByUser(findById(id).getId());
     }
 
     @Override
