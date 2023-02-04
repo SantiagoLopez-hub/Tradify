@@ -19,6 +19,7 @@ public class Share {
     private Integer id;
 
     @OneToMany(targetEntity = News.class, cascade = CascadeType.ALL)
+    @Builder.Default
     private List<News> news = new ArrayList<>();
 
     private String symbol;
