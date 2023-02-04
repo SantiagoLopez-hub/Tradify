@@ -16,6 +16,7 @@ import java.util.List;
 @Entity
 public class Share {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @OneToMany(targetEntity = News.class, cascade = CascadeType.ALL)
