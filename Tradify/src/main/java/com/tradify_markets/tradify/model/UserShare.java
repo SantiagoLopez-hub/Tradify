@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Entity
 public class UserShare {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.EAGER)
