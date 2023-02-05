@@ -39,24 +39,7 @@ class UserServiceTest {
     @Test
     void saveUser() {
         // Given
-        Role role = Role.builder()
-                .id(1)
-                .name("User")
-                .build();
-
-        User user = mock(User.class);
-        when(user.getId()).thenReturn(1);
-        when(user.getRole()).thenReturn(role);
-        when(user.getFirstName()).thenReturn("Adrian");
-        when(user.getLastName()).thenReturn("Resin");
-        when(user.getAddress()).thenReturn("1st Street");
-        when(user.getCity()).thenReturn("London");
-        when(user.getCountry()).thenReturn("United Kingdom");
-        when(user.getPostCode()).thenReturn("SE1 6D");
-        when(user.getPhoneNumber()).thenReturn("07323456789");
-        when(user.getUsername()).thenReturn("username");
-        when(user.getPassword()).thenReturn("paSSword1!");
-        when(user.getEmail()).thenReturn("email@test.com");
+        User user = createUser();
 
         // When
         Mockito.when(userService.saveUser(user)).thenReturn(user);
@@ -94,5 +77,28 @@ class UserServiceTest {
 
     @Test
     void loadUserByUsername() {
+    }
+
+    private User createUser(){
+        Role role = Role.builder()
+                .id(1)
+                .name("User")
+                .build();
+
+        User user = mock(User.class);
+        when(user.getId()).thenReturn(1);
+        when(user.getRole()).thenReturn(role);
+        when(user.getFirstName()).thenReturn("Adrian");
+        when(user.getLastName()).thenReturn("Resin");
+        when(user.getAddress()).thenReturn("1st Street");
+        when(user.getCity()).thenReturn("London");
+        when(user.getCountry()).thenReturn("United Kingdom");
+        when(user.getPostCode()).thenReturn("SE1 6D");
+        when(user.getPhoneNumber()).thenReturn("07323456789");
+        when(user.getUsername()).thenReturn("MyUsername");
+        when(user.getPassword()).thenReturn("paSSword1!");
+        when(user.getEmail()).thenReturn("email@test.com");
+
+        return user;
     }
 }
