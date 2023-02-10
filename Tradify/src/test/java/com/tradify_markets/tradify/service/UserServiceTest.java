@@ -75,6 +75,18 @@ class UserServiceTest {
 
     @Test
     void findByUsername() {
+        // Given
+        User user = createUser(5);
+
+        // When
+        Mockito.when(userService.findByUsername(user.getUsername())).thenReturn(user);
+
+        // Then
+        assertEquals(user, userService.findByUsername(user.getUsername()));
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.findByUsername(user.getUsername()).getUsername() + RESET_LETTERS);
     }
 
     @Test
