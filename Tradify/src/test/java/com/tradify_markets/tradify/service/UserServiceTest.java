@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -64,7 +63,7 @@ class UserServiceTest {
         User user = createUser(4);
 
         // When
-        Mockito.when(userService.saveUser(user)).thenReturn(user);
+        when(userService.saveUser(user)).thenReturn(user);
 
         // Then
         assertEquals(user, userService.saveUser(user));
@@ -79,7 +78,7 @@ class UserServiceTest {
         User user = createUser(5);
 
         // When
-        Mockito.when(userService.findByUsername(user.getUsername())).thenReturn(user);
+        when(userService.findByUsername(user.getUsername())).thenReturn(user);
 
         // Then
         assertEquals(user, userService.findByUsername(user.getUsername()));
@@ -95,17 +94,33 @@ class UserServiceTest {
         User user = createUser(6);
 
         // When
-        Mockito.when(userService.findById(user.getId())).thenReturn(user);
+        when(userService.findById(user.getId())).thenReturn(user);
 
         // Then
         assertEquals(user, userService.findById(user.getId()));
 
         System.out.println(GREEN_LETTERS + "Expected Value: " + user.getId() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " + userService.findById(user.getId()).getId() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.findById(user.getId()).getId() + RESET_LETTERS);
     }
 
     @Test
     void updateUser() {
+        // Given
+        User user = createUser(7);
+        User user2 = createUser(8);
+        when(user2.getEmail()).thenReturn("new_email@gold.ac.uk");
+        doAnswer(invocation -> "new_email@gold.ac.uk").when(user).getEmail();
+
+        // When
+        when(userService.updateUser(user.getId(), user2)).thenReturn(user);
+
+        // Then
+        assertEquals(user.getEmail(), userService.updateUser(user.getId(), user2).getEmail());
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getEmail() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.updateUser(user.getId(), user2).getEmail() + RESET_LETTERS);
     }
 
     @Test
