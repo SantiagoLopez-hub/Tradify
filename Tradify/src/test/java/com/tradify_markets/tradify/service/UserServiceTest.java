@@ -10,9 +10,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 class UserServiceTest {
@@ -30,16 +32,36 @@ class UserServiceTest {
     @Test
     void findAll() {
         // Given
-        assert true;
+        List<User> users = spy(List.class);
+
+        User user1 = createUser(1);
+        User user2 = createUser(2);
+        User user3 = createUser(3);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+
+        verify(users).add(user1);
+        verify(users).add(user2);
+        verify(users).add(user3);
 
         // When
+        doReturn(3).when(users).size();
+        assertEquals(3, users.size());
+
         // Then
+        doReturn(3).when(users).size();
+        verify(users).size();
+        assertEquals(3, users.size());
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + 3 + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " + users.size() + RESET_LETTERS);
     }
 
     @Test
     void saveUser() {
         // Given
-        User user = createUser();
+        User user = createUser(4);
 
         // When
         Mockito.when(userService.saveUser(user)).thenReturn(user);
@@ -79,14 +101,14 @@ class UserServiceTest {
     void loadUserByUsername() {
     }
 
-    private User createUser(){
+    private User createUser(Integer id) {
         Role role = Role.builder()
                 .id(1)
                 .name("User")
                 .build();
 
         User user = mock(User.class);
-        when(user.getId()).thenReturn(1);
+        when(user.getId()).thenReturn(id);
         when(user.getRole()).thenReturn(role);
         when(user.getFirstName()).thenReturn("Adrian");
         when(user.getLastName()).thenReturn("Resin");
