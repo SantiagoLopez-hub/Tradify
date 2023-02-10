@@ -91,6 +91,17 @@ class UserServiceTest {
 
     @Test
     void findById() {
+        // Given
+        User user = createUser(6);
+
+        // When
+        Mockito.when(userService.findById(user.getId())).thenReturn(user);
+
+        // Then
+        assertEquals(user, userService.findById(user.getId()));
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getId() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " + userService.findById(user.getId()).getId() + RESET_LETTERS);
     }
 
     @Test
