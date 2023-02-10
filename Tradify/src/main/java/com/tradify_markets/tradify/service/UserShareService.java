@@ -1,24 +1,21 @@
 package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.UserShare;
+import com.tradify_markets.tradify.repository.UserRepository;
 import com.tradify_markets.tradify.repository.UserShareRepository;
-import org.springframework.context.annotation.Lazy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class UserShareService {
     private final UserShareRepository userShareRepository;
-    private final UserService userService;
-
-    public UserShareService(UserShareRepository userShareRepository, @Lazy UserService userService) {
-        this.userShareRepository = userShareRepository;
-        this.userService = userService;
-    }
+    private final UserRepository userRepository;
 
     public UserShare findByUser(Integer id) {
-        return userShareRepository.findByUser(userService.findById(id));
+        return userShareRepository.findByUser(userRepository.findById(id).orElse(null));
     }
 }

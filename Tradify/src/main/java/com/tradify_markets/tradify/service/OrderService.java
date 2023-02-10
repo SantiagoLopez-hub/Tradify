@@ -2,23 +2,20 @@ package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.Order;
 import com.tradify_markets.tradify.repository.OrderRepository;
-import org.springframework.context.annotation.Lazy;
+import com.tradify_markets.tradify.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final UserService userService;
-
-    public OrderService(OrderRepository orderRepository, @Lazy UserService userService) {
-        this.orderRepository = orderRepository;
-        this.userService = userService;
-    }
+    private final UserRepository userRepository;
 
     public Order findByUser(Integer id) {
-        return orderRepository.findByUser(userService.findById(id));
+        return orderRepository.findByUser(userRepository.findById(id).orElse(null));
     }
 }

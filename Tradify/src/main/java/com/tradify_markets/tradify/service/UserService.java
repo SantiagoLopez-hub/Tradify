@@ -54,11 +54,11 @@ public class UserService implements UserDetailsService {
     }
 
     public UserShare userShares(Integer id) {
-        return userShareService.findByUser(findById(id).getId());
+        return userShareService.findByUser(id);
     }
 
     public Order userOrders(Integer id) {
-        return orderService.findByUser(findById(id).getId());
+        return orderService.findByUser(id);
     }
 
     @Override

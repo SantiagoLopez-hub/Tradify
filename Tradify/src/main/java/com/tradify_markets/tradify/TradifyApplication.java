@@ -1,9 +1,12 @@
 package com.tradify_markets.tradify;
 
-import com.tradify_markets.tradify.model.Role;
-import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.model.*;
+import com.tradify_markets.tradify.repository.OrderRepository;
 import com.tradify_markets.tradify.repository.RoleRepository;
+import com.tradify_markets.tradify.repository.ShareRepository;
+import com.tradify_markets.tradify.repository.UserShareRepository;
 import com.tradify_markets.tradify.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,12 +15,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
+@AllArgsConstructor
 public class TradifyApplication {
     private final RoleRepository roleRepository;
-
-    public TradifyApplication(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
+    private final ShareRepository shareRepository;
+    private final OrderRepository orderRepository;
+    private final UserShareRepository userShareRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TradifyApplication.class, args);
@@ -115,6 +118,33 @@ public class TradifyApplication {
                             .city("Milan")
                             .postCode("E1 6B")
                             .country("UK")
+                            .build()
+            );
+
+            shareRepository.save(
+                    Share.builder()
+                            .id(1)
+                            .name("Apple")
+                            .price(100)
+                            .build()
+            );
+
+            orderRepository.save(
+                    Order.builder()
+                            .id(1)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .quantity(2)
+                            .price(100)
+                            .build()
+            );
+
+            userShareRepository.save(
+                    UserShare.builder()
+                            .id(1)
+                            .share(shareRepository.findById(1).get())
+                            .user(userService.findById(1))
+                            .quantity(10)
                             .build()
             );
         };
