@@ -125,6 +125,17 @@ class UserServiceTest {
 
     @Test
     void deleteUser() {
+        // Given
+        User user = createUser(9);
+        when(userService.saveUser(user)).thenReturn(user);
+        userService.saveUser(user);
+
+        // When
+        doNothing().when(userService).deleteUser(9);
+
+        // Then
+        userService.deleteUser(user.getId());
+        verify(userService, times(1)).deleteUser(user.getId());
     }
 
     @Test
