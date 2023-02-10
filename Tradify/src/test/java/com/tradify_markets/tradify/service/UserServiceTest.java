@@ -2,30 +2,42 @@ package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 class UserServiceTest {
-    @Mock
     private UserService userService;
+
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private UserShareService userShareService;
+    @Mock
+    private OrderService orderService;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     private final String GREEN_LETTERS = "\u001B[32m";
     private final String RESET_LETTERS = "\u001B[0m";
 
     @BeforeEach
-    public void init() {
+    public void setUp() {
         MockitoAnnotations.openMocks(this);
+        userService = new UserService(userRepository, userShareService, orderService, passwordEncoder);
     }
 
     @Test
@@ -94,7 +106,7 @@ class UserServiceTest {
         User user = createUser(6);
 
         // When
-        when(userService.findById(user.getId())).thenReturn(user);
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
         // Then
         assertEquals(user, userService.findById(user.getId()));
@@ -131,11 +143,11 @@ class UserServiceTest {
         userService.saveUser(user);
 
         // When
-        doNothing().when(userService).deleteUser(9);
+        doNothing().when(userRepository).deleteById(9);
 
         // Then
         userService.deleteUser(user.getId());
-        verify(userService, times(1)).deleteUser(user.getId());
+        verify(userRepository, times(1)).deleteById(user.getId());
     }
 
     @Test
