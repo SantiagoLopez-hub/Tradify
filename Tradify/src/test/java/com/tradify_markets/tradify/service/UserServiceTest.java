@@ -3,23 +3,18 @@ package com.tradify_markets.tradify.service;
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UserServiceTest {
     private UserService userService;
 
@@ -42,6 +37,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(1)
     void findAll() {
         // Given
         List<User> users = spy(List.class);
@@ -71,6 +67,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(2)
     void saveUser() {
         // Given
         User user = createUser(4);
@@ -86,6 +83,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(3)
     void findByUsername() {
         // Given
         User user = createUser(5);
@@ -102,6 +100,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(4)
     void findById() {
         // Given
         User user = createUser(6);
@@ -118,6 +117,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(5)
     void updateUser() {
         // Given
         User user = createUser(7);
@@ -137,6 +137,7 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(6)
     void deleteUser() {
         // Given
         User user = createUser(9);
@@ -152,14 +153,17 @@ class UserServiceTest {
     }
 
     @Test
+    @Order(7)
     void userShares() {
     }
 
     @Test
+    @Order(8)
     void userOrders() {
     }
 
     @Test
+    @Order(9)
     void loadUserByUsername() {
         // Given
         User user = createUser(10);
@@ -168,7 +172,7 @@ class UserServiceTest {
         when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
 
         // Then
-        Assertions.assertEquals(user.getUsername(), userRepository.findByUsername(user.getUsername()).getUsername());
+        assertEquals(user.getUsername(), userRepository.findByUsername(user.getUsername()).getUsername());
 
         System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
         System.out.println(GREEN_LETTERS + "Actual Value: " +
