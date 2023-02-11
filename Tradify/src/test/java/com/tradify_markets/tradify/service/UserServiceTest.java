@@ -3,6 +3,7 @@ package com.tradify_markets.tradify.service;
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.repository.UserRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -160,6 +161,18 @@ class UserServiceTest {
 
     @Test
     void loadUserByUsername() {
+        // Given
+        User user = createUser(10);
+
+        // When
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
+
+        // Then
+        Assertions.assertEquals(user.getUsername(), userRepository.findByUsername(user.getUsername()).getUsername());
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.loadUserByUsername(user.getUsername()).getUsername() + RESET_LETTERS);
     }
 
     private User createUser(Integer id) {
