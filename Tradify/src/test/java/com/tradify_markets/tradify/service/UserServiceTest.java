@@ -1,13 +1,16 @@
 package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.Role;
+import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.model.UserShare;
 import com.tradify_markets.tradify.repository.UserRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -155,6 +158,26 @@ class UserServiceTest {
     @Test
     @Order(7)
     void userShares() {
+        // Given
+        User user = createUser(10);
+        Share share1 = createShare(1);
+        Share share2 = createShare(2);
+        UserShare userShare1 = createUserShare(1, share1, user);
+        UserShare userShare2 = createUserShare(2, share2, user);
+
+        List<UserShare> userShares = new ArrayList<>();
+        userShares.add(userShare1);
+        userShares.add(userShare2);
+
+        // When
+        when(userService.userShares(user.getId())).thenReturn(userShares);
+
+        // Then
+        assertEquals(userShares, userService.userShares(user.getId()));
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + userShares + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.userShares(user.getId()) + RESET_LETTERS);
     }
 
     @Test
@@ -166,7 +189,7 @@ class UserServiceTest {
     @Order(9)
     void loadUserByUsername() {
         // Given
-        User user = createUser(10);
+        User user = createUser(12);
 
         // When
         when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
@@ -200,5 +223,24 @@ class UserServiceTest {
         when(user.getEmail()).thenReturn("email@test.com");
 
         return user;
+    }
+
+    private Share createShare(Integer id) {
+        Share share = mock(Share.class);
+        when(share.getId()).thenReturn(id);
+        when(share.getSymbol()).thenReturn("AAPL");
+        when(share.getName()).thenReturn("Apple Inc.");
+        when(share.getPrice()).thenReturn(100);
+
+        return share;
+    }
+
+    private UserShare createUserShare(Integer id, Share share, User user) {
+        UserShare userShare = mock(UserShare.class);
+        when(userShare.getId()).thenReturn(id);
+        when(userShare.getShare()).thenReturn(share);
+        when(userShare.getUser()).thenReturn(user);
+
+        return userShare;
     }
 }
