@@ -53,7 +53,7 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public UserShare userShares(Integer id) {
+    public List<UserShare> userShares(Integer id) {
         return userShareService.findByUser(id);
     }
 

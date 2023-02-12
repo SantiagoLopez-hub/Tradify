@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class UserShareService {
     private final UserShareRepository userShareRepository;
     private final UserRepository userRepository;
 
-    public UserShare findByUser(Integer id) {
-        return userShareRepository.findByUser(userRepository.findById(id).orElse(null));
+    public List<UserShare> findByUser(Integer id) {
+        return userShareRepository.findAllByUser(userRepository.findById(id).orElse(null));
     }
 }

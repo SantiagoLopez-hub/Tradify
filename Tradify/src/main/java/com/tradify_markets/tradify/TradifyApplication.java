@@ -147,6 +147,15 @@ public class TradifyApplication {
                             .quantity(10)
                             .build()
             );
+
+            userShareRepository.save(
+                    UserShare.builder()
+                            .id(2)
+                            .share(shareRepository.findById(1).get())
+                            .user(userService.findById(1))
+                            .quantity(1)
+                            .build()
+            );
         };
     }
 }
