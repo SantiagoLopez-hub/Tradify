@@ -1,11 +1,11 @@
 package com.tradify_markets.tradify.service;
 
-import com.tradify_markets.tradify.model.Role;
-import com.tradify_markets.tradify.model.Share;
-import com.tradify_markets.tradify.model.User;
-import com.tradify_markets.tradify.model.UserShare;
+import com.tradify_markets.tradify.model.*;
 import com.tradify_markets.tradify.repository.UserRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,7 +40,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(1)
+    @org.junit.jupiter.api.Order(1)
     void findAll() {
         // Given
         List<User> users = spy(List.class);
@@ -70,7 +70,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(2)
+    @org.junit.jupiter.api.Order(2)
     void saveUser() {
         // Given
         User user = createUser(4);
@@ -86,7 +86,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(3)
+    @org.junit.jupiter.api.Order(3)
     void findByUsername() {
         // Given
         User user = createUser(5);
@@ -103,7 +103,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(4)
+    @org.junit.jupiter.api.Order(4)
     void findById() {
         // Given
         User user = createUser(6);
@@ -120,7 +120,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(5)
+    @org.junit.jupiter.api.Order(5)
     void updateUser() {
         // Given
         User user = createUser(7);
@@ -140,7 +140,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(6)
+    @org.junit.jupiter.api.Order(6)
     void deleteUser() {
         // Given
         User user = createUser(9);
@@ -156,7 +156,7 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(7)
+    @org.junit.jupiter.api.Order(7)
     void userShares() {
         // Given
         User user = createUser(10);
@@ -181,12 +181,36 @@ class UserServiceTest {
     }
 
     @Test
-    @Order(8)
+    @org.junit.jupiter.api.Order(8)
     void userOrders() {
+        // Given
+        User user = createUser(11);
+        Share share1 = createShare(3);
+        Share share2 = createShare(4);
+        Share share3 = createShare(5);
+
+        Order order1 = createOrder(1, share1, user);
+        Order order2 = createOrder(2, share2, user);
+        Order order3 = createOrder(3, share3, user);
+
+        List<Order> orders = new ArrayList<>();
+        orders.add(order1);
+        orders.add(order2);
+        orders.add(order3);
+
+        // When
+        when(userService.userOrders(user.getId())).thenReturn(orders);
+
+        // Then
+        assertEquals(orders, userService.userOrders(user.getId()));
+
+        System.out.println(GREEN_LETTERS + "Expected Value: " + orders + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " +
+                userService.userOrders(user.getId()) + RESET_LETTERS);
     }
 
     @Test
-    @Order(9)
+    @org.junit.jupiter.api.Order(9)
     void loadUserByUsername() {
         // Given
         User user = createUser(12);
@@ -242,5 +266,14 @@ class UserServiceTest {
         when(userShare.getUser()).thenReturn(user);
 
         return userShare;
+    }
+
+    private Order createOrder(Integer id, Share share, User user) {
+        Order order = mock(Order.class);
+        when(order.getId()).thenReturn(id);
+        when(order.getShare()).thenReturn(share);
+        when(order.getUser()).thenReturn(user);
+
+        return order;
     }
 }
