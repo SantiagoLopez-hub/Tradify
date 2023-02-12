@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
 
-    public Order findByUser(Integer id) {
-        return orderRepository.findByUser(userRepository.findById(id).orElse(null));
+    public List<Order> findByUser(Integer id) {
+        return orderRepository.findAllByUser(userRepository.findById(id).orElse(null));
     }
 }

@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
         return userShareService.findByUser(id);
     }
 
-    public Order userOrders(Integer id) {
+    public List<Order> userOrders(Integer id) {
         return orderService.findByUser(id);
     }
 
