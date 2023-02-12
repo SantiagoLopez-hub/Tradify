@@ -42,12 +42,12 @@ public class Users {
     }
 
     @GetMapping("/{id}/shares")
-    public UserShare userShares(@PathVariable Integer id) {
+    public List<UserShare> userShares(@PathVariable Integer id) {
         return userService.userShares(id);
     }
 
     @GetMapping("/{id}/orders")
-    public Order userOrders(@PathVariable Integer id) {
+    public List<Order> userOrders(@PathVariable Integer id) {
         return userService.userOrders(id);
     }
 }

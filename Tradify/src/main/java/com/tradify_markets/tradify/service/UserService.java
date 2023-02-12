@@ -53,12 +53,12 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public UserShare userShares(Integer id) {
-        return userShareService.findByUser(findById(id).getId());
+    public List<UserShare> userShares(Integer id) {
+        return userShareService.findByUser(id);
     }
 
-    public Order userOrders(Integer id) {
-        return orderService.findByUser(findById(id).getId());
+    public List<Order> userOrders(Integer id) {
+        return orderService.findByUser(id);
     }
 
     @Override
