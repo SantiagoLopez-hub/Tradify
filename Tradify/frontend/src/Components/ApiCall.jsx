@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const ApiCall = (endpoint, request, payload) => {
+const ApiCall = (request, endpoint, payload) => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(false);
 
     useEffect(() => {
         const GetData = async () => {
-            if (request === "post") {
+            if (request === "POST") {
                 return await axios
                     .post(process.env.REACT_APP_DOMAIN + endpoint, payload)
                     .then((response) => {
@@ -17,7 +17,7 @@ const ApiCall = (endpoint, request, payload) => {
             }
 
             return await axios
-                .get(process.env.REACT_APP_DOMAIN + endpoint)
+                .get(process.env.REACT_APP_DOMAIN + endpoint, payload)
                 .then((response) => {
                     return response.data;
                 });

@@ -2,8 +2,8 @@ import ApiCall from "../Components/ApiCall";
 
 const Login = () => {
     const [login, isLoading, error] = ApiCall(
+        "POST",
         "/login",
-        "post",
         new URLSearchParams({
             username: "username",
             password: "1234",
@@ -20,7 +20,7 @@ const Login = () => {
         );
     }
 
-    console.log(login);
+    localStorage.setItem("access_token", login?.access_token);
 
     return (
         <header className="App-header">
