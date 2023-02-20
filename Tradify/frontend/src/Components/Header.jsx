@@ -40,6 +40,11 @@ const Header = () => {
                         Users
                     </Link>
                 </li>
+                <li className="nav-item px-4">
+                    <Link className="nav-link" to="/logout">
+                        Logout
+                    </Link>
+                </li>
             </ul>
         </header>
     );
