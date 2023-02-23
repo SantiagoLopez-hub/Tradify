@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import RefreshToken from "../Auth/RefreshToken";
 
 const ApiCall = (request, endpoint, payload) => {
@@ -36,15 +35,14 @@ const ApiCall = (request, endpoint, payload) => {
                 setLoading(false);
                 counter += 1;
 
-                await console.log(counter);
-
                 if (err.response.status === 403 && counter === 1) {
                     await RefreshToken();
+
                     if (localStorage.getItem("logged_in") === "true") {
                         localStorage.setItem("logged_in", "false");
                         window.location.reload();
                     }
-                } else if (err.response.status === 403 && counter > 1) {
+                } else if (err.response.status === 403 && counter > 2) {
                     window.location.href = "/login";
                 }
             });

@@ -30,6 +30,7 @@ const Login = () => {
                     response?.data?.refresh_token
                 );
                 setIsLoggedIn(true);
+                localStorage.setItem("logged_in", "true");
             })
             .catch((err) => {
                 setError(err.message);
