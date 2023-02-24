@@ -9,12 +9,9 @@ const RefreshToken = async () => {
                 )}`,
             },
         })
-        .then(async (response) => {
-            await localStorage.setItem(
-                "access_token",
-                response?.data?.access_token
-            );
-            await localStorage.setItem(
+        .then((response) => {
+            localStorage.setItem("access_token", response?.data?.access_token);
+            localStorage.setItem(
                 "refresh_token",
                 response?.data?.refresh_token
             );

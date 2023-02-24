@@ -7,19 +7,14 @@ const Users = () => {
         },
     });
 
-    if (error) {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    {error}, Please try again later.
-                </header>
-            </div>
-        );
-    }
-
     return (
         <header className="App-header">
-            Learn React
+            {error && (
+                <div className="alert alert-danger" role="alert">
+                    <p>{error}, Please try again later.</p>
+                </div>
+            )}
+
             <ul>
                 {isLoading ? (
                     <p>Loading...</p>
