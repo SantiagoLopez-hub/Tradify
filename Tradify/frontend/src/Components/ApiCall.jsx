@@ -42,7 +42,10 @@ const ApiCall = (request, endpoint, payload) => {
                         localStorage.setItem("logged_in", "false");
                         window.location.reload();
                     }
-                } else if (err.response.status === 403 && counter > 2) {
+                } else if (
+                    err.response.status === 403 &&
+                    localStorage.getItem("logged_in") !== "true"
+                ) {
                     window.location.href = "/login";
                 }
             });
