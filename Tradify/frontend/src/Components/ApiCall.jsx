@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import RefreshToken from "../Auth/RefreshToken";
 
@@ -6,7 +6,7 @@ const ApiCall = (request, endpoint, payload) => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    let counter = 0;
+    const counter = useRef(0);
 
     useEffect(() => {
         const GetData = async () => {
@@ -33,13 +33,12 @@ const ApiCall = (request, endpoint, payload) => {
             .catch(async (err) => {
                 setError(err.message);
                 setLoading(false);
-                counter += 1;
+                counter.current += 1;
 
-                if (err.response.status === 403 && counter === 1) {
+                if (err.response.status === 403 && counter.current === 1) {
                     await RefreshToken();
 
                     if (localStorage.getItem("logged_in") === "true") {
-                        localStorage.setItem("logged_in", "false");
                         window.location.reload();
                     }
                 } else if (
@@ -49,7 +48,7 @@ const ApiCall = (request, endpoint, payload) => {
                     window.location.href = "/login";
                 }
             });
-    }, [endpoint]);
+    }, [endpoint, payload, request]);
 
     return [data, isLoading, error];
 };
