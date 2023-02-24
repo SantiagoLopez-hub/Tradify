@@ -48,7 +48,7 @@ const ApiCall = (request, endpoint, payload) => {
                     window.location.href = "/login";
                 }
             });
-    }, [endpoint, payload, request]);
+    }, [endpoint]);
 
     return [data, isLoading, error];
 };
