@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import ApiCall from "../Components/ApiCall";
+import ApiError from "../Components/ApiError";
 
 const Trade = () => {
     const { id } = useParams();
@@ -11,7 +12,13 @@ const Trade = () => {
 
     return (
         <div>
-            <p>Trading Page for {share.name}</p>
+            {error && <ApiError error={error} />}
+
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <p>Trading Page for {share.name}</p>
+            )}
         </div>
     );
 };

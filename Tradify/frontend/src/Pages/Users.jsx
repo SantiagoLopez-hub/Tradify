@@ -1,4 +1,5 @@
 import ApiCall from "../Components/ApiCall";
+import ApiError from "../Components/ApiError";
 
 const Users = () => {
     const [users, isLoading, error] = ApiCall("GET", "/users", {
@@ -9,17 +10,18 @@ const Users = () => {
 
     return (
         <div>
-            {error && (
-                <div className="alert alert-danger" role="alert">
-                    <p>{error}, Please try again later.</p>
-                </div>
-            )}
+            {error && <ApiError error={error} />}
 
             <ul>
                 {isLoading ? (
                     <p>Loading...</p>
                 ) : (
-                    users.map((user, i) => <li key={i}>{user.email}</li>)
+                    <>
+                        <h1>Users</h1>
+                        {users.map((user, i) => (
+                            <li key={i}>{user.email}</li>
+                        ))}
+                    </>
                 )}
             </ul>
         </div>

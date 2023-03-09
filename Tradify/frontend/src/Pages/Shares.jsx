@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import ApiCall from "../Components/ApiCall";
+import ApiError from "../Components/ApiError";
 
 const Shares = () => {
     const [shares, isLoading, error] = ApiCall("GET", "/shares", {
@@ -10,11 +11,7 @@ const Shares = () => {
 
     return (
         <div>
-            {error && (
-                <div className="alert alert-danger" role="alert">
-                    <p>{error}, Please try again later.</p>
-                </div>
-            )}
+            {error && <ApiError error={error} />}
 
             {isLoading ? (
                 <p>Loading...</p>
