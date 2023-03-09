@@ -124,7 +124,39 @@ public class TradifyApplication {
             shareRepository.save(
                     Share.builder()
                             .id(1)
+                            .name("Discover Financial Services")
+                            .price(100)
+                            .build()
+            );
+
+            shareRepository.save(
+                    Share.builder()
+                            .id(2)
                             .name("Apple")
+                            .price(100)
+                            .build()
+            );
+
+            shareRepository.save(
+                    Share.builder()
+                            .id(3)
+                            .name("American Express")
+                            .price(100)
+                            .build()
+            );
+
+            shareRepository.save(
+                    Share.builder()
+                            .id(4)
+                            .name("HSBC")
+                            .price(100)
+                            .build()
+            );
+
+            shareRepository.save(
+                    Share.builder()
+                            .id(5)
+                            .name("JP Morgan Chase")
                             .price(100)
                             .build()
             );

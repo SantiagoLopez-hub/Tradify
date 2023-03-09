@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -13,10 +13,10 @@ const Footer = () => {
             </ul>
 
             <p className="text-center text-muted">
-                © 2022 Tradify - Goldsmiths, University of London
+                © 2023 Tradify - Goldsmiths, University of London
             </p>
         </footer>
     );
-}
+};
 
 export default Footer;

@@ -8,7 +8,7 @@ const Users = () => {
     });
 
     return (
-        <header className="App-header">
+        <div>
             {error && (
                 <div className="alert alert-danger" role="alert">
                     <p>{error}, Please try again later.</p>
@@ -22,7 +22,7 @@ const Users = () => {
                     users.map((user, i) => <li key={i}>{user.email}</li>)
                 )}
             </ul>
-        </header>
+        </div>
     );
 };
 
