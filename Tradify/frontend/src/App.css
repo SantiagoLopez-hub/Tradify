@@ -19,3 +19,7 @@
 .App-link {
     color: #61dafb;
 }
+
+.list-group-item:hover {
+    color: #105ed2;
+}
