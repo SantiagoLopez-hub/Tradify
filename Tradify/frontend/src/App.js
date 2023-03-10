@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
 import Login from "./Auth/Login";
 import Logout from "./Auth/Logout";
+import Register from "./Auth/Register";
+import Home from "./Pages/Home";
 import Users from "./Pages/Users";
 import Shares from "./Pages/Shares";
 import Trade from "./Pages/Trade";
@@ -21,6 +22,7 @@ const App = () => {
                     <Route exact path="/users" element={<Users />} />
                     <Route exact path="/shares" element={<Shares />} />
                     <Route exact path="/trade/:id" element={<Trade />} />
+                    <Route exact path="/register" element={<Register />} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/logout" element={<Logout />} />
                 </Routes>
