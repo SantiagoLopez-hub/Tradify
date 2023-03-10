@@ -3,7 +3,7 @@ const OrderForm = () => {
         <form className="border rounded py-3">
             <div className="row">
                 <div className="form-group col">
-                    <label for="price">Price</label>
+                    <label htmlFor="price">Price</label>
                     <input
                         type="number"
                         min={0.01}
@@ -13,7 +13,7 @@ const OrderForm = () => {
                     />
                 </div>
                 <div className="form-group col">
-                    <label for="amount">Amount</label>
+                    <label htmlFor="amount">Amount</label>
                     <input
                         type="number"
                         min={1}
