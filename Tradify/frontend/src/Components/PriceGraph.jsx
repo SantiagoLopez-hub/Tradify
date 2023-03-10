@@ -24,6 +24,7 @@ const PriceGraph = ({ share_id }) => {
             data.push(item.price);
             return null;
         });
+
         let graph_Data = {
             labels: labels,
             datasets: [
