@@ -67,8 +67,13 @@ public class Users {
     }
 
     @GetMapping("/{id}/shares")
-    public List<UserShare> userShares(@PathVariable Integer id) {
+    public List<UserShare> getAllUserShares(@PathVariable Integer id) {
         return userService.userShares(id);
+    }
+
+    @GetMapping("/{username}/{shareId}")
+    public List<UserShare> userShares(@PathVariable String username, @PathVariable Integer shareId) {
+        return userService.userShare(username, shareId);
     }
 
     @GetMapping("/{id}/orders")

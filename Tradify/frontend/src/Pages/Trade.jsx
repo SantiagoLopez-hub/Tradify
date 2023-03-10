@@ -4,6 +4,7 @@ import ApiError from "../Components/ApiError";
 import News from "../Components/News";
 import OrderForm from "../Components/OrderForm";
 import Orders from "../Components/Orders";
+import OwnwedShares from "../Components/OwnwedShares";
 
 const Trade = () => {
     const { id } = useParams();
@@ -22,6 +23,7 @@ const Trade = () => {
             ) : (
                 <>
                     <p>Trading Page for {share.name}</p>
+                    <OwnwedShares share_id={share.id} />
                     <OrderForm />
                     <Orders share_id={share.id} />
                     <News share_id={share.id} />

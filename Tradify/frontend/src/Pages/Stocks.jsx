@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import ApiCall from "../Components/ApiCall";
 import ApiError from "../Components/ApiError";
 
-const Shares = () => {
+const Stocks = () => {
     const [shares, isLoading, error] = ApiCall("GET", "/shares", {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
@@ -17,7 +17,7 @@ const Shares = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <h1>Shares</h1>
+                    <h1>Stocks</h1>
                     <ul className="list-group">
                         {shares.map((share, i) => (
                             <Link
@@ -37,4 +37,4 @@ const Shares = () => {
     );
 };
 
-export default Shares;
+export default Stocks;

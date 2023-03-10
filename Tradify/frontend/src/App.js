@@ -5,7 +5,7 @@ import Logout from "./Auth/Logout";
 import Register from "./Auth/Register";
 import Home from "./Pages/Home";
 import Users from "./Pages/Users";
-import Shares from "./Pages/Shares";
+import Stocks from "./Pages/Stocks";
 import Trade from "./Pages/Trade";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
@@ -20,7 +20,7 @@ const App = () => {
                 <Routes>
                     <Route exact path="/" element={<Home />} />
                     <Route exact path="/users" element={<Users />} />
-                    <Route exact path="/shares" element={<Shares />} />
+                    <Route exact path="/stocks" element={<Stocks />} />
                     <Route exact path="/trade/:id" element={<Trade />} />
                     <Route exact path="/register" element={<Register />} />
                     <Route exact path="/login" element={<Login />} />
