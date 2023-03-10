@@ -22,7 +22,32 @@ public class Users {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
+    public User createUser(@RequestBody String firstName,
+                           @RequestBody String lastName,
+                           @RequestBody String email,
+                           @RequestBody String phoneNumber,
+                           @RequestBody String address,
+                           @RequestBody String city,
+                           @RequestBody String postCode,
+                           @RequestBody String country,
+                           @RequestBody String username,
+                           @RequestBody String password) {
+
+        System.out.println(username);
+
+        User user = User.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .phoneNumber(phoneNumber)
+                .address(address)
+                .city(city)
+                .postCode(postCode)
+                .country(country)
+                .username(username)
+                .password(password)
+                .build();
+
         return userService.saveUser(user);
     }
 
