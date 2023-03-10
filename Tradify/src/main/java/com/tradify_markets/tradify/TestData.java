@@ -19,8 +19,8 @@ public class TestData {
     private final NewsRepository newsRepository;
 
     public void createTestData() {
-        createShares();
         createUsers();
+        createShares();
         createOrders();
         createUserShares();
         createNews();
@@ -186,6 +186,12 @@ public class TestData {
                         .build()
         );
 
+
+        /*
+        *
+        * Discover Financial Services
+        *
+        * */
         orderRepository.save(
                 Order.builder()
                         .id(1)
@@ -282,6 +288,85 @@ public class TestData {
                         .date(String.valueOf(LocalDate.now().minusDays(145)))
                         .build()
         );
+
+
+        /*
+        *
+        * Apple
+        *
+        * */
+        orderRepository.save(
+                Order.builder()
+                        .id(9)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(2).get())
+                        .quantity(9)
+                        .price(154.73)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(300)))
+                        .build()
+        );
+        orderRepository.save(
+                Order.builder()
+                        .id(10)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(1).get())
+                        .quantity(2)
+                        .price(130)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(250)))
+                        .build()
+        );
+        orderRepository.save(
+                Order.builder()
+                        .id(11)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(1).get())
+                        .quantity(4)
+                        .price(174.55)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(150)))
+                        .build()
+        );
+        orderRepository.save(
+                Order.builder()
+                        .id(12)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(1).get())
+                        .quantity(34)
+                        .price(126.36)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(65)))
+                        .build()
+        );
+        orderRepository.save(
+                Order.builder()
+                        .id(13)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(1).get())
+                        .quantity(37)
+                        .price(148.50)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(10)))
+                        .build()
+        );
+        orderRepository.save(
+                Order.builder()
+                        .id(14)
+                        .user(userService.findById(1))
+                        .share(shareRepository.findById(2).get())
+                        .orderType(orderTypeRepository.findById(1).get())
+                        .quantity(37)
+                        .price(178.96)
+                        .status(orderStatusRepository.findById(2).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(270)))
+                        .build()
+        );
     }
 
     public void createUserShares() {
@@ -340,6 +425,20 @@ public class TestData {
                                 "a direct banking and payment services company. Discover Financial " +
                                 "Services is a member of the S&P 500 index.")
                         .share(shareRepository.findById(1).get())
+                        .date(String.valueOf(LocalDate.now().minusDays(60)))
+                        .build()
+        );
+
+        newsRepository.save(
+                NewsModel.builder()
+                        .id(4)
+                        .title("Apple - Quarterly Earnings Report")
+                        .content("Apple Inc. is an American multinational technology company " +
+                                "headquartered in Cupertino, California, that designs, develops, " +
+                                "and sells consumer electronics, computer software, and online " +
+                                "services. It is considered one of the Big Four of technology, " +
+                                "alongside Amazon, Google, and Facebook.")
+                        .share(shareRepository.findById(2).get())
                         .date(String.valueOf(LocalDate.now().minusDays(60)))
                         .build()
         );
