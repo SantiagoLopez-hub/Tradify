@@ -24,6 +24,7 @@ const Trade = () => {
             ) : (
                 <>
                     <p>Trading Page for {share.name}</p>
+
                     <PriceGraph />
                     <OwnwedShares share_id={share.id} />
                     <OrderForm />

@@ -18,7 +18,7 @@ const PriceGraph = () => {
             datasets: [
                 {
                     label: "Price",
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    data: [20, 35, 15, 76, 54, 60, 45],
                     fill: false,
                     backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(255, 99, 132, 0.2)",
