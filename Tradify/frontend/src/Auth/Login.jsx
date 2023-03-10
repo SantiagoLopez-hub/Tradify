@@ -29,6 +29,7 @@ const Login = () => {
                     "refresh_token",
                     response?.data?.refresh_token
                 );
+                localStorage.setItem("username", username);
                 setIsLoggedIn(true);
                 localStorage.setItem("logged_in", "true");
             })

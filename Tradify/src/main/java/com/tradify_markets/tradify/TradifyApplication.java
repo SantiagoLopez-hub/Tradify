@@ -18,6 +18,8 @@ import java.time.LocalDate;
 public class TradifyApplication {
     private final RoleRepository roleRepository;
     private final ShareRepository shareRepository;
+    private final OrderTypeRepository orderTypeRepository;
+    private final OrderStatusRepository orderStatusRepository;
     private final OrderRepository orderRepository;
     private final UserShareRepository userShareRepository;
     private final NewsRepository newsRepository;
@@ -128,7 +130,6 @@ public class TradifyApplication {
                             .price(100)
                             .build()
             );
-
             shareRepository.save(
                     Share.builder()
                             .id(2)
@@ -136,7 +137,6 @@ public class TradifyApplication {
                             .price(100)
                             .build()
             );
-
             shareRepository.save(
                     Share.builder()
                             .id(3)
@@ -144,7 +144,6 @@ public class TradifyApplication {
                             .price(100)
                             .build()
             );
-
             shareRepository.save(
                     Share.builder()
                             .id(4)
@@ -152,7 +151,6 @@ public class TradifyApplication {
                             .price(100)
                             .build()
             );
-
             shareRepository.save(
                     Share.builder()
                             .id(5)
@@ -161,13 +159,72 @@ public class TradifyApplication {
                             .build()
             );
 
+            orderStatusRepository.save(
+                    OrderStatus.builder()
+                            .id(1)
+                            .name("Open")
+                            .build()
+            );
+            orderStatusRepository.save(
+                    OrderStatus.builder()
+                            .id(2)
+                            .name("Executed")
+                            .build()
+            );
+            orderStatusRepository.save(
+                    OrderStatus.builder()
+                            .id(3)
+                            .name("Cancelled")
+                            .build()
+            );
+
+            orderTypeRepository.save(
+                    OrderType.builder()
+                            .id(1)
+                            .name("Buy")
+                            .build()
+            );
+            orderTypeRepository.save(
+                    OrderType.builder()
+                            .id(2)
+                            .name("Sell")
+                            .build()
+            );
+
             orderRepository.save(
                     Order.builder()
                             .id(1)
                             .user(userService.findById(1))
                             .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(4)
+                            .price(200)
+                            .status(orderStatusRepository.findById(1).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(1)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(2)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
                             .quantity(2)
                             .price(100)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(4)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(3)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(2).get())
+                            .quantity(9)
+                            .price(1000)
+                            .status(orderStatusRepository.findById(3).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(5)))
                             .build()
             );
 
@@ -179,7 +236,6 @@ public class TradifyApplication {
                             .quantity(10)
                             .build()
             );
-
             userShareRepository.save(
                     UserShare.builder()
                             .id(2)

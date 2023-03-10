@@ -26,8 +26,10 @@ public class Order {
     @OneToOne(fetch = FetchType.EAGER)
     private OrderType orderType;
 
+    @ManyToOne
+    private OrderStatus status;
+
     private Integer quantity;
     private double price;
     private String date;
-    private Boolean isExecuted;
 }

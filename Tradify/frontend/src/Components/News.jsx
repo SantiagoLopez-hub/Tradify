@@ -8,7 +8,13 @@ const News = ({ share_id }) => {
     });
 
     return news.length === 0 ? (
-        "No news published yet"
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>No news published yet</th>
+                </tr>
+            </thead>
+        </table>
     ) : (
         <table className="table">
             <thead>
