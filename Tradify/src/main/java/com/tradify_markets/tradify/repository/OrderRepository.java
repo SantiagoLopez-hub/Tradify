@@ -14,5 +14,5 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByUser(User user);
     List<Order> findByUserAndShare(User user, Share share);
-    List<Order> findByShareAndStatus(Share share, OrderStatus status);
+    List<Order> findByShareAndStatusOrderByDateAsc(Share share, OrderStatus status);
 }

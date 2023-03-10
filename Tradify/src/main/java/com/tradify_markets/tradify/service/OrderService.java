@@ -30,7 +30,7 @@ public class OrderService {
     public List<Order> findExecutedByShare(Integer id) {
         Share share = shareRepository.findById(id).orElse(null);
         OrderStatus status = orderStatusRepository.findByName("Executed");
-        return orderRepository.findByShareAndStatus(share, status);
+        return orderRepository.findByShareAndStatusOrderByDateAsc(share, status);
     }
 
     public List<Order> findByUserAndShare(String username, Integer shareId) {
