@@ -1,4 +1,4 @@
-package com.tradify_markets.tradify;
+package com.tradify_markets.tradify.authentication;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.tradify_markets.tradify;
+package com.tradify_markets.tradify.authentication;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
