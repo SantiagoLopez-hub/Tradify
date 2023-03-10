@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import ApiCall from "./ApiCall";
 
 const PriceGraph = ({ share_id }) => {
-    let labels = [],
-        data = [];
     const [graphData, setGraphData] = useState([]);
 
     const [tradingHistory] = ApiCall(
@@ -17,13 +15,15 @@ const PriceGraph = ({ share_id }) => {
         }
     );
 
-    tradingHistory.map((item) => {
-        labels.push(item.date);
-        data.push(item.price);
-        return;
-    });
-
     useEffect(() => {
+        let labels = [],
+            data = [];
+
+        tradingHistory.map((item) => {
+            labels.push(item.date);
+            data.push(item.price);
+            return null;
+        });
         let graph_Data = {
             labels: labels,
             datasets: [
@@ -31,9 +31,9 @@ const PriceGraph = ({ share_id }) => {
                     label: "Price",
                     data: data,
                     fill: false,
-                    backgroundColor: "rgb(255, 99, 132)",
-                    borderColor: "rgba(255, 99, 132, 0.2)",
-                    tension: 0.15,
+                    backgroundColor: "rgb(0, 0, 0, 0.5)",
+                    borderColor: "rgba(0, 0, 0, 0.25)",
+                    tension: 0.2,
                 },
             ],
         };
