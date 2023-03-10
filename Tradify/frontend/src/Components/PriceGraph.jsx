@@ -1,24 +1,35 @@
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
+import ApiCall from "./ApiCall";
 
-const PriceGraph = () => {
+const PriceGraph = ({ share_id }) => {
+    let labels = [],
+        data = [];
     const [graphData, setGraphData] = useState([]);
+
+    const [tradingHistory] = ApiCall(
+        "GET",
+        `/shares/${share_id}/trading-history`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        }
+    );
+
+    tradingHistory.map((item) => {
+        labels.push(item.date);
+        data.push(item.price);
+        return;
+    });
 
     useEffect(() => {
         let graph_Data = {
-            labels: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-            ],
+            labels: labels,
             datasets: [
                 {
                     label: "Price",
-                    data: [20, 35, 15, 76, 54, 60, 45],
+                    data: data,
                     fill: false,
                     backgroundColor: "rgb(255, 99, 132)",
                     borderColor: "rgba(255, 99, 132, 0.2)",
@@ -28,7 +39,7 @@ const PriceGraph = () => {
         };
 
         setGraphData(graph_Data);
-    }, []);
+    }, [tradingHistory]);
 
     return (
         <div>

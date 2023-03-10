@@ -227,6 +227,66 @@ public class TradifyApplication {
                             .date(String.valueOf(LocalDate.now().minusDays(5)))
                             .build()
             );
+            orderRepository.save(
+                    Order.builder()
+                            .id(4)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(2)
+                            .price(54)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(10)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(5)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(4)
+                            .price(76)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(30)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(6)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(34)
+                            .price(15)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(65)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(7)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(37)
+                            .price(35)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(100)))
+                            .build()
+            );
+            orderRepository.save(
+                    Order.builder()
+                            .id(8)
+                            .user(userService.findById(1))
+                            .share(shareRepository.findById(1).get())
+                            .orderType(orderTypeRepository.findById(1).get())
+                            .quantity(31)
+                            .price(20)
+                            .status(orderStatusRepository.findById(2).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(145)))
+                            .build()
+            );
 
             userShareRepository.save(
                     UserShare.builder()

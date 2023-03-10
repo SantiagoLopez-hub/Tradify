@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Orders {
     private final OrderService orderService;
+
     @GetMapping("/{username}/{shareId}")
     public List<Order> orders(@PathVariable String username, @PathVariable Integer shareId) {
         return orderService.findByUserAndShare(username, shareId);

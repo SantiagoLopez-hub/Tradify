@@ -1,9 +1,11 @@
 package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.Order;
+import com.tradify_markets.tradify.model.OrderStatus;
 import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.model.User;
 import com.tradify_markets.tradify.repository.OrderRepository;
+import com.tradify_markets.tradify.repository.OrderStatusRepository;
 import com.tradify_markets.tradify.repository.ShareRepository;
 import com.tradify_markets.tradify.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +19,18 @@ import java.util.List;
 @Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final OrderStatusRepository orderStatusRepository;
     private final UserRepository userRepository;
     private final ShareRepository shareRepository;
 
     public List<Order> findByUser(Integer id) {
         return orderRepository.findAllByUser(userRepository.findById(id).orElse(null));
+    }
+
+    public List<Order> findExecutedByShare(Integer id) {
+        Share share = shareRepository.findById(id).orElse(null);
+        OrderStatus status = orderStatusRepository.findByName("Executed");
+        return orderRepository.findByShareAndStatus(share, status);
     }
 
     public List<Order> findByUserAndShare(String username, Integer shareId) {
