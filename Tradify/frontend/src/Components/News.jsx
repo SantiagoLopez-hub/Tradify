@@ -10,7 +10,7 @@ const News = ({ share_id }) => {
     return news.length === 0 ? (
         "No news published yet"
     ) : (
-        <table className="table container">
+        <table className="table">
             <thead>
                 <tr>
                     <th>News</th>
@@ -24,7 +24,7 @@ const News = ({ share_id }) => {
             </thead>
             <tbody>
                 {news.map((news) => (
-                    <tr className="" key={news.id}>
+                    <tr key={news.id}>
                         <td>{news.title}</td>
                         <td>{news.content}</td>
                         <td>{news.date}</td>
