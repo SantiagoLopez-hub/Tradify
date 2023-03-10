@@ -1,10 +1,7 @@
 package com.tradify_markets.tradify;
 
 import com.tradify_markets.tradify.model.*;
-import com.tradify_markets.tradify.repository.OrderRepository;
-import com.tradify_markets.tradify.repository.RoleRepository;
-import com.tradify_markets.tradify.repository.ShareRepository;
-import com.tradify_markets.tradify.repository.UserShareRepository;
+import com.tradify_markets.tradify.repository.*;
 import com.tradify_markets.tradify.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+
 @SpringBootApplication
 @AllArgsConstructor
 public class TradifyApplication {
@@ -21,6 +20,7 @@ public class TradifyApplication {
     private final ShareRepository shareRepository;
     private final OrderRepository orderRepository;
     private final UserShareRepository userShareRepository;
+    private final NewsRepository newsRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(TradifyApplication.class, args);
@@ -186,6 +186,34 @@ public class TradifyApplication {
                             .share(shareRepository.findById(1).get())
                             .user(userService.findById(1))
                             .quantity(1)
+                            .build()
+            );
+
+            newsRepository.save(
+                    NewsModel.builder()
+                            .id(1)
+                            .title("Discover Financial Services - Quarterly Earnings Report")
+                            .content("Discover Financial Services is an American financial services company headquartered in Riverwoods, Illinois, a suburb of Chicago. It was founded in 1986 by Sears, Roebuck and Company, and is now a direct banking and payment services company. Discover Financial Services is a member of the S&P 500 index.")
+                            .share(shareRepository.findById(1).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(1)))
+                            .build()
+            );
+            newsRepository.save(
+                    NewsModel.builder()
+                            .id(2)
+                            .title("Dividend Yield for Discover Financial Services")
+                            .content("Discover Financial Services is an American financial services company headquartered in Riverwoods, Illinois, a suburb of Chicago. It was founded in 1986 by Sears, Roebuck and Company, and is now a direct banking and payment services company. Discover Financial Services is a member of the S&P 500 index.")
+                            .share(shareRepository.findById(1).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(30)))
+                            .build()
+            );
+            newsRepository.save(
+                    NewsModel.builder()
+                            .id(3)
+                            .title("Breaking: Discover Financial Services to buy back $1.5 billion of shares")
+                            .content("Discover Financial Services is an American financial services company headquartered in Riverwoods, Illinois, a suburb of Chicago. It was founded in 1986 by Sears, Roebuck and Company, and is now a direct banking and payment services company. Discover Financial Services is a member of the S&P 500 index.")
+                            .share(shareRepository.findById(1).get())
+                            .date(String.valueOf(LocalDate.now().minusDays(60)))
                             .build()
             );
         };

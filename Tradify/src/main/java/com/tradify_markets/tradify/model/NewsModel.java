@@ -12,12 +12,18 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class News {
+public class NewsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    private Share share;
+
     private String title;
+
+    @Lob
     private String content;
+
     private String date;
 }
