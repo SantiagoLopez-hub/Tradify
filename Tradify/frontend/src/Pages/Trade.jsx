@@ -5,6 +5,7 @@ import News from "../Components/News";
 import OrderForm from "../Components/OrderForm";
 import Orders from "../Components/Orders";
 import OwnwedShares from "../Components/OwnwedShares";
+import PriceGraph from "../Components/PriceGraph";
 
 const Trade = () => {
     const { id } = useParams();
@@ -23,6 +24,7 @@ const Trade = () => {
             ) : (
                 <>
                     <p>Trading Page for {share.name}</p>
+                    <PriceGraph />
                     <OwnwedShares share_id={share.id} />
                     <OrderForm />
                     <Orders share_id={share.id} />
