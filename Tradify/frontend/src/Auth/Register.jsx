@@ -1,5 +1,6 @@
+import axios from "axios";
 import { useState } from "react";
-import ApiCall from "../Components/ApiCall";
+import { Navigate } from "react-router-dom";
 
 const Register = () => {
     const [firstName, setFirstName] = useState("");
@@ -12,22 +13,40 @@ const Register = () => {
     const [phone, setPhone] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [redirect, setRedirect] = useState(false);
     const [error, setError] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError(false);
 
-        const [user, isLoading, err] = ApiCall("POST", "/users/create", {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-        });
-
-        console.log(user);
+        axios
+            .post(
+                process.env.REACT_APP_DOMAIN + "/users/create",
+                new URLSearchParams({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    phoneNumber: phone,
+                    address: address,
+                    city: city,
+                    postCode: postCode,
+                    country: country,
+                    username: username,
+                    password: password,
+                })
+            )
+            .then(() => {
+                setRedirect(true);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
     };
 
-    return (
+    return redirect ? (
+        <Navigate to="/" />
+    ) : (
         <header className="App-header">
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
