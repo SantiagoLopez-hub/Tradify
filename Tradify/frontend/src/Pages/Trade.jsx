@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import ApiCall from "../Components/ApiCall";
 import ApiError from "../Components/ApiError";
 import News from "../Components/News";
+import OrderForm from "../Components/OrderForm";
 import Orders from "../Components/Orders";
 
 const Trade = () => {
@@ -21,6 +22,7 @@ const Trade = () => {
             ) : (
                 <>
                     <p>Trading Page for {share.name}</p>
+                    <OrderForm />
                     <Orders share_id={share.id} />
                     <News share_id={share.id} />
                 </>
