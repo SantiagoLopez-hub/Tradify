@@ -1,38 +1,44 @@
 package com.tradify_markets.tradify.route;
 
+import com.tradify_markets.tradify.model.Order;
 import com.tradify_markets.tradify.model.Share;
 import com.tradify_markets.tradify.repository.ShareRepository;
+import com.tradify_markets.tradify.service.OrderService;
+import com.tradify_markets.tradify.service.ShareService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/shares")
+@RequiredArgsConstructor
 public class Shares {
-    private final ShareRepository shareRepository;
-
-    public Shares(ShareRepository shareRepository) {
-        this.shareRepository = shareRepository;
-    }
+    private final ShareService shareService;
+    private final OrderService orderService;
 
     @GetMapping
-    public List<Share> share() {
-        return shareRepository.findAll();
+    public List<Share> shares() {
+        return shareService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Share share(@PathVariable Integer id) {
-        return shareRepository.findById(id).get();
+    public Share getShare(@PathVariable Integer id) {
+        return shareService.findById(id);
+    }
+
+    @GetMapping("/{id}/trading-history")
+    public List<Order> orders(@PathVariable Integer id) {
+        return orderService.findExecutedByShare(id);
     }
 
     @PutMapping("/{id}")
     public Share updateShare(@PathVariable Integer id, @RequestBody Share share) {
-        share.setId(id);
-        return shareRepository.save(share);
+        return shareService.updateShare(id, share);
     }
 
     @DeleteMapping("/{id}")
     public void deleteShare(@PathVariable Integer id) {
-        shareRepository.deleteById(id);
+        shareService.deleteById(id);
     }
 }

@@ -1,26 +1,31 @@
 import ApiCall from "../Components/ApiCall";
+import ApiError from "../Components/ApiError";
 
 const Users = () => {
-    const [users, isLoading, error] = ApiCall("/users");
-
-    if (error) {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    {error}, Please try again later.
-                </header>
-            </div>
-        );
-    }
+    const [users, isLoading, error] = ApiCall("GET", "/users", {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+    });
 
     return (
-        <header className="App-header">
-            Learn React
+        <div>
+            {error && <ApiError error={error} />}
+
             <ul>
-                {isLoading ? <p>Loading...</p> : users.map((user, i) => <li key={i}>{user.email}</li>)}
+                {isLoading ? (
+                    <p>Loading...</p>
+                ) : (
+                    <>
+                        <h1>Users</h1>
+                        {users.map((user, i) => (
+                            <li key={i}>{user.email}</li>
+                        ))}
+                    </>
+                )}
             </ul>
-        </header>
+        </div>
     );
-}
+};
 
 export default Users;
