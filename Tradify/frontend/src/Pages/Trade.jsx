@@ -23,7 +23,9 @@ const Trade = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p>Trading Page for {share.name}</p>
+                    <p>
+                        {share.name} | {share.symbol} | {share.exchange}
+                    </p>
 
                     <PriceGraph share_id={share.id} />
                     <OwnwedShares share_id={share.id} />

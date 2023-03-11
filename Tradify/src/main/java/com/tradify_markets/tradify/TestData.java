@@ -120,6 +120,8 @@ public class TestData {
                 Share.builder()
                         .id(1)
                         .name("Discover Financial Services")
+                        .symbol("DFS")
+                        .exchange("NYSE")
                         .price(100)
                         .build()
         );
@@ -127,6 +129,8 @@ public class TestData {
                 Share.builder()
                         .id(2)
                         .name("Apple")
+                        .symbol("AAPL")
+                        .exchange("NASDAQ")
                         .price(100)
                         .build()
         );
@@ -134,6 +138,8 @@ public class TestData {
                 Share.builder()
                         .id(3)
                         .name("American Express")
+                        .symbol("AXP")
+                        .exchange("NYSE")
                         .price(100)
                         .build()
         );
@@ -141,6 +147,8 @@ public class TestData {
                 Share.builder()
                         .id(4)
                         .name("HSBC")
+                        .symbol("HSBC")
+                        .exchange("NYSE")
                         .price(100)
                         .build()
         );
@@ -148,6 +156,8 @@ public class TestData {
                 Share.builder()
                         .id(5)
                         .name("JP Morgan Chase")
+                        .symbol("JPM")
+                        .exchange("NYSE")
                         .price(100)
                         .build()
         );
