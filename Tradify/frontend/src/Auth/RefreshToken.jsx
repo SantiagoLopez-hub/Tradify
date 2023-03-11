@@ -18,6 +18,7 @@ const RefreshToken = async () => {
         })
         .catch((err) => {
             console.log(err.message);
+            window.location.href = "/login";
         });
 };
 

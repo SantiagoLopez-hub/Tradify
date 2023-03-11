@@ -31,7 +31,6 @@ const Login = () => {
                 );
                 localStorage.setItem("username", username);
                 setIsLoggedIn(true);
-                localStorage.setItem("logged_in", "true");
             })
             .catch((err) => {
                 setError(err.message);

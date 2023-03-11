@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import RefreshToken from "../Auth/RefreshToken";
+import isTokenExpired from "../Auth/TokenExpiration";
 
 const ApiCall = (request, endpoint, payload) => {
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const counter = useRef(0);
 
     useEffect(() => {
         const GetData = async () => {
@@ -31,22 +31,22 @@ const ApiCall = (request, endpoint, payload) => {
                 setLoading(false);
             })
             .catch(async (err) => {
-                setError(err.message);
-                setLoading(false);
-                counter.current += 1;
-
-                if (err.response.status === 403 && counter.current === 1) {
+                if (
+                    localStorage.getItem("access_token") === null ||
+                    isTokenExpired(localStorage.getItem("access_token"))
+                ) {
                     await RefreshToken();
 
-                    if (localStorage.getItem("logged_in") === "true") {
+                    if (
+                        !isTokenExpired(localStorage.getItem("refresh_token"))
+                    ) {
                         window.location.reload();
+                        return;
                     }
-                } else if (
-                    err.response.status === 403 &&
-                    localStorage.getItem("logged_in") !== "true"
-                ) {
-                    window.location.href = "/login";
                 }
+
+                setError(err.message);
+                setLoading(false);
             });
     }, [endpoint]);
 
