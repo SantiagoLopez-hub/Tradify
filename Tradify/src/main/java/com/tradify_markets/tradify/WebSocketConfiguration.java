@@ -49,6 +49,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
                     User user = userService.findByUsername(username);
                     assert user != null;
                 }
+
                 return message;
             }
         };
@@ -65,7 +66,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.setApplicationDestinationPrefixes("/order");
-        registry.enableSimpleBroker("/topic");
+        registry.setApplicationDestinationPrefixes("/stocks/order-book");
+        registry.enableSimpleBroker("/subscribe-orders");
     }
 }

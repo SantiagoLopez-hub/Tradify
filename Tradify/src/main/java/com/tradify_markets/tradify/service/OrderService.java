@@ -23,6 +23,10 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ShareRepository shareRepository;
 
+    public Order create(Order order){
+        return orderRepository.save(order);
+    }
+
     public List<Order> findByUser(Integer id) {
         return orderRepository.findAllByUser(userRepository.findById(id).orElse(null));
     }
