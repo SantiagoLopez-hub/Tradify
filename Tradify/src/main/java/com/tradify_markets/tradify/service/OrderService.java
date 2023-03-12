@@ -41,6 +41,6 @@ public class OrderService {
         User user = userRepository.findByUsername(username);
         Share share = shareRepository.findById(shareId).orElse(null);
 
-        return orderRepository.findByUserAndShare(user, share);
+        return orderRepository.findByUserAndShareOrderByIdDesc(user, share);
     }
 }
