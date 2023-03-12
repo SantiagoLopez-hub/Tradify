@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import ApiCall from "./ApiCall";
 
-const Orders = ({ share_id }) => {
+const Orders = ({ share_id, orderBook, setOrderBook }) => {
     const [orders] = ApiCall(
         "GET",
         `/orders/${localStorage.getItem("username")}/${share_id}`,
@@ -10,6 +11,12 @@ const Orders = ({ share_id }) => {
             },
         }
     );
+
+    useEffect(() => {
+        if (orders.length > 0) {
+            setOrderBook((previous) => [...previous, ...orders]);
+        }
+    }, [orders]);
 
     return orders.length === 0 ? (
         <table className="table">
@@ -36,7 +43,7 @@ const Orders = ({ share_id }) => {
                 </tr>
             </thead>
             <tbody>
-                {orders.map((order) => (
+                {orderBook.map((order) => (
                     <tr key={order.id}>
                         <td>{order.id}</td>
                         <td>{order.orderType.name}</td>

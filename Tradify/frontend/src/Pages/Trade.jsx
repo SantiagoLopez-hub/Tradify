@@ -12,18 +12,14 @@ import PriceGraph from "../Components/PriceGraph";
 
 const Trade = () => {
     const { id } = useParams();
+    const [err, setErr] = useState(false);
+    const [orderBook, setOrderBook] = useState([]);
+    const stomp = useRef(null);
     const [share, isLoading, error] = ApiCall("GET", "/shares/" + id, {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         },
     });
-
-    const [err, setErr] = useState(false);
-    const stomp = useRef(null);
-
-    useEffect(() => {
-        connect();
-    }, []);
 
     const connect = () => {
         const socket = new SockJS(
@@ -48,7 +44,7 @@ const Trade = () => {
     };
 
     const onOrderReceived = (order) => {
-        console.log("Message recieved:", JSON.parse(order.body));
+        setOrderBook((previous) => [JSON.parse(order.body), ...previous]);
     };
 
     const createOrder = (order_type, order) => {
@@ -73,6 +69,10 @@ const Trade = () => {
         console.log("Disconnected");
     };
 
+    useEffect(() => {
+        connect();
+    }, []);
+
     return (
         <div>
             {error && <ApiError error={error} />}
@@ -89,7 +89,11 @@ const Trade = () => {
                     <PriceGraph share_id={share.id} />
                     <OwnwedShares share_id={share.id} />
                     <OrderForm createOrder={createOrder} />
-                    <Orders share_id={share.id} />
+                    <Orders
+                        share_id={share.id}
+                        orderBook={orderBook}
+                        setOrderBook={setOrderBook}
+                    />
                     <News share_id={share.id} />
                 </>
             )}
