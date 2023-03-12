@@ -18,7 +18,7 @@ const Orders = ({ share_id, orderBook, setOrderBook }) => {
         }
     }, [orders]);
 
-    return orders.length === 0 ? (
+    return orderBook.length === 0 ? (
         <table className="table">
             <thead>
                 <tr>
@@ -27,34 +27,36 @@ const Orders = ({ share_id, orderBook, setOrderBook }) => {
             </thead>
         </table>
     ) : (
-        <table className="table">
-            <thead>
-                <tr>
-                    <th>Orders</th>
-                    <th colSpan={5}></th>
-                </tr>
-                <tr>
-                    <th scope="col">Reference Number</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {orderBook.map((order) => (
-                    <tr key={order.id}>
-                        <td>{order.id}</td>
-                        <td>{order.orderType.name}</td>
-                        <td>{order.price}</td>
-                        <td>{order.quantity}</td>
-                        <td>{order.status.name}</td>
-                        <td>{new Date(order.date).toLocaleString()}</td>
+        <div className="overflow-auto h-25" style={{ maxHeight: "500px" }}>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Orders</th>
+                        <th colSpan={5}></th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                    <tr>
+                        <th scope="col">Reference Number</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orderBook.map((order) => (
+                        <tr key={order.id}>
+                            <td>{order.id}</td>
+                            <td>{order.orderType.name}</td>
+                            <td>{order.price}</td>
+                            <td>{order.quantity}</td>
+                            <td>{order.status.name}</td>
+                            <td>{new Date(order.date).toLocaleString()}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 };
 
