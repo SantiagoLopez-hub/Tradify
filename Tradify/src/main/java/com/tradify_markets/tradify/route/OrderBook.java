@@ -33,9 +33,13 @@ public class OrderBook {
         assert orderType != null;
 
         // Get Status
-        Integer status = order.getOrderType().getId();
+        Integer status = order.getStatus().getId();
         OrderStatus orderStatus = orderStatusRepository.findById(status).orElse(null);
         assert orderStatus != null;
+
+        if (order.getQuantity() <= 0 || order.getPrice() <= 0){
+            throw new IllegalArgumentException("Quantity and Price must be more than 0");
+        }
 
         // Set all values
         order.setUser(user);
