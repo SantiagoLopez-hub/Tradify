@@ -20,7 +20,7 @@ const PriceGraph = ({ share_id }) => {
             data = [];
 
         tradingHistory.map((item) => {
-            labels.push(item.date);
+            labels.push(item.date.split("T")[0]);
             data.push(item.price);
             return null;
         });

@@ -6,6 +6,8 @@ import com.tradify_markets.tradify.service.UserService;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @AllArgsConstructor
 public class TestData {
@@ -211,7 +213,7 @@ public class TestData {
                         .quantity(4)
                         .price(200)
                         .status(orderStatusRepository.findById(1).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(1)))
+                        .date(new GregorianCalendar(2022, Calendar.AUGUST, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -223,7 +225,7 @@ public class TestData {
                         .quantity(2)
                         .price(100)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(4)))
+                        .date(new GregorianCalendar(2022, Calendar.JULY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -235,7 +237,7 @@ public class TestData {
                         .quantity(9)
                         .price(1000)
                         .status(orderStatusRepository.findById(3).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(5)))
+                        .date(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -247,7 +249,7 @@ public class TestData {
                         .quantity(2)
                         .price(54)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(10)))
+                        .date(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -259,7 +261,7 @@ public class TestData {
                         .quantity(4)
                         .price(76)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(30)))
+                        .date(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -271,7 +273,7 @@ public class TestData {
                         .quantity(34)
                         .price(15)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(65)))
+                        .date(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -283,7 +285,7 @@ public class TestData {
                         .quantity(37)
                         .price(35)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(100)))
+                        .date(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -295,7 +297,7 @@ public class TestData {
                         .quantity(31)
                         .price(20)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(145)))
+                        .date(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
 
@@ -314,7 +316,7 @@ public class TestData {
                         .quantity(9)
                         .price(154.73)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(300)))
+                        .date(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -326,7 +328,7 @@ public class TestData {
                         .quantity(2)
                         .price(130)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(250)))
+                        .date(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -338,7 +340,7 @@ public class TestData {
                         .quantity(4)
                         .price(174.55)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(150)))
+                        .date(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -350,7 +352,7 @@ public class TestData {
                         .quantity(34)
                         .price(126.36)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(65)))
+                        .date(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -360,9 +362,9 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(37)
-                        .price(148.50)
+                        .price(168.50)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(10)))
+                        .date(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -374,7 +376,7 @@ public class TestData {
                         .quantity(37)
                         .price(178.96)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(270)))
+                        .date(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
     }
