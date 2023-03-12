@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { over } from "stompjs";
 import SockJS from "sockjs-client";
@@ -19,16 +19,20 @@ const Trade = () => {
     });
 
     const [err, setErr] = useState(false);
-    let stompClient = null;
+    const stomp = useRef(null);
+
+    useEffect(() => {
+        connect();
+    }, []);
 
     const connect = () => {
         const socket = new SockJS(
             process.env.REACT_APP_DOMAIN + "/websocket-connection"
         );
 
-        stompClient = over(socket);
+        stomp.client = over(socket);
 
-        stompClient.connect(
+        stomp.client.connect(
             {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
@@ -40,7 +44,7 @@ const Trade = () => {
     const onError = (err) => setErr(err);
 
     const onConnected = () => {
-        stompClient.subscribe("/subscribe-orders/order-book", onOrderReceived);
+        stomp.client.subscribe("/subscribe-orders/order-book", onOrderReceived);
     };
 
     const onOrderReceived = (order) => {
@@ -56,7 +60,7 @@ const Trade = () => {
             id: order_type,
         };
 
-        stompClient.send(
+        stomp.client.send(
             "/stocks/order-book/create",
             {},
             JSON.stringify(order)
@@ -64,12 +68,10 @@ const Trade = () => {
     };
 
     const disconnect = () => {
-        if (stompClient !== null) stompClient.disconnect();
+        if (stomp.client !== null) stomp.client.disconnect();
 
         console.log("Disconnected");
     };
-
-    connect();
 
     return (
         <div>
