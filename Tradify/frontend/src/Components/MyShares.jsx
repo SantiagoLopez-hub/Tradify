@@ -24,7 +24,7 @@ const MyShares = ({ share_id }) => {
             {isLoading && <p>Loading...</p>}
             {error && <ApiError error={error} />}
 
-            <span>Owned Shares: {sharesCount}</span>
+            <span>My Shares: {sharesCount}</span>
         </div>
     );
 };
