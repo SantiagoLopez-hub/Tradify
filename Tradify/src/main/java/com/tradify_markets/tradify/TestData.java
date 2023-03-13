@@ -61,6 +61,7 @@ public class TestData {
         userService.saveUser(
                 User.builder()
                         .id(2)
+                        .username("user")
                         .email("Jgohn@gmail.com")
                         .password("password")
                         .firstName("John")
@@ -395,6 +396,14 @@ public class TestData {
                         .id(2)
                         .share(shareRepository.findById(1).orElse(null))
                         .user(userService.findById(1))
+                        .quantity(1)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(2)
+                        .share(shareRepository.findById(1).orElse(null))
+                        .user(userService.findById(2))
                         .quantity(1)
                         .build()
         );
