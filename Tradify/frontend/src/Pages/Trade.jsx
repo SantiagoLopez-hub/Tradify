@@ -86,14 +86,19 @@ const Trade = () => {
                         {share.name} | {share.symbol} | {share.exchange}
                     </p>
 
-                    <StockGraph share_id={share.id} />
-                    <OwnwedShares share_id={share.id} />
-                    <OrderForm createOrder={createOrder} />
-                    <Orders
-                        share_id={share.id}
-                        orderBook={orderBook}
-                        setOrderBook={setOrderBook}
-                    />
+                    <div id="stockGraph">
+                        <StockGraph share_id={share.id} />
+                    </div>
+
+                    <div id="myOrders">
+                        <OwnwedShares share_id={share.id} />
+                        <OrderForm createOrder={createOrder} />
+                        <Orders
+                            share_id={share.id}
+                            orderBook={orderBook}
+                            setOrderBook={setOrderBook}
+                        />
+                    </div>
                     <News share_id={share.id} />
                 </>
             )}

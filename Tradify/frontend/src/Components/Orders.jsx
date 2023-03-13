@@ -27,7 +27,7 @@ const Orders = ({ share_id, orderBook, setOrderBook }) => {
             </thead>
         </table>
     ) : (
-        <div className="overflow-auto h-25" style={{ maxHeight: "500px" }}>
+        <div className="overflow-auto" id="myOrdersTable">
             <table className="table">
                 <thead>
                     <tr>

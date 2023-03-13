@@ -44,7 +44,7 @@ const StockGraph = ({ share_id }) => {
     return graphData?.labels?.length > 0 ? (
         <Graph data={graphData} />
     ) : (
-        <p>Loading...</p>
+        <p>No graph data available</p>
     );
 };
 
