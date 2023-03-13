@@ -16,7 +16,7 @@ const MyShares = ({ share_id }) => {
     );
 
     useEffect(() => {
-        setSharesCount(shares.length);
+        setSharesCount(shares.quantity || 0);
     }, [shares]);
 
     return (

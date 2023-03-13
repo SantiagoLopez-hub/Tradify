@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface UserShareRepository extends JpaRepository<UserShare, Integer> {
     List<UserShare> findAllByUser(User user);
-    List<UserShare> findByUserAndShare(User user, Share share);
+    UserShare findByUserAndShare(User user, Share share);
 }

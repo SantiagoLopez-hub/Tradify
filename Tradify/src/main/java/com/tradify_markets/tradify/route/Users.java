@@ -71,7 +71,7 @@ public class Users {
     }
 
     @GetMapping("/{username}/{shareId}")
-    public List<UserShare> userShares(@PathVariable String username, @PathVariable Integer shareId) {
+    public UserShare userShares(@PathVariable String username, @PathVariable Integer shareId) {
         return userService.userShare(username, shareId);
     }
 
