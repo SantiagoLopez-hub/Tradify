@@ -48,7 +48,7 @@ const OrderForm = ({ createOrder }) => {
                             })
                         }
                         type="submit"
-                        className="btn btn-success w-25 mx-auto"
+                        className="btn btn-success w-50 mx-auto"
                     >
                         Buy
                     </button>
@@ -66,7 +66,7 @@ const OrderForm = ({ createOrder }) => {
                             })
                         }
                         type="submit"
-                        className="btn btn-danger w-25 mx-auto"
+                        className="btn btn-danger w-50 mx-auto"
                     >
                         Sell
                     </button>
