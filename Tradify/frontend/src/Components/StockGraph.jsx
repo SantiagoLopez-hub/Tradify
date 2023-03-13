@@ -1,8 +1,8 @@
-import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
+import { Graph } from "./Graph";
 import ApiCall from "./ApiCall";
 
-const PriceGraph = ({ share_id }) => {
+const StockGraph = ({ share_id }) => {
     const [graphData, setGraphData] = useState([]);
 
     const [tradingHistory] = ApiCall(
@@ -42,11 +42,11 @@ const PriceGraph = ({ share_id }) => {
         setGraphData(graph_Data);
     }, [tradingHistory]);
 
-    return (
-        <div>
-            <CChart type="line" data={graphData} />
-        </div>
+    return graphData?.labels?.length > 0 ? (
+        <Graph data={graphData} />
+    ) : (
+        <p>Loading...</p>
     );
 };
 
-export default PriceGraph;
+export default StockGraph;

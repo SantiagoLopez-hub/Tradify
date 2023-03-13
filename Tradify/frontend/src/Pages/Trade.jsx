@@ -8,7 +8,7 @@ import News from "../Components/News";
 import OrderForm from "../Components/OrderForm";
 import Orders from "../Components/Orders";
 import OwnwedShares from "../Components/OwnwedShares";
-import PriceGraph from "../Components/PriceGraph";
+import StockGraph from "../Components/StockGraph";
 
 const Trade = () => {
     const { id } = useParams();
@@ -86,7 +86,7 @@ const Trade = () => {
                         {share.name} | {share.symbol} | {share.exchange}
                     </p>
 
-                    <PriceGraph share_id={share.id} />
+                    <StockGraph share_id={share.id} />
                     <OwnwedShares share_id={share.id} />
                     <OrderForm createOrder={createOrder} />
                     <Orders
