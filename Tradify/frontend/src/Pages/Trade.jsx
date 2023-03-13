@@ -6,8 +6,8 @@ import ApiCall from "../Components/ApiCall";
 import ApiError from "../Components/ApiError";
 import News from "../Components/News";
 import OrderForm from "../Components/OrderForm";
-import Orders from "../Components/Orders";
-import OwnwedShares from "../Components/OwnwedShares";
+import MyOrders from "../Components/MyOrders";
+import MyShares from "../Components/MyShares";
 import StockGraph from "../Components/StockGraph";
 
 const Trade = () => {
@@ -91,9 +91,9 @@ const Trade = () => {
                     </div>
 
                     <div id="myOrders">
-                        <OwnwedShares share_id={share.id} />
+                        <MyShares share_id={share.id} />
                         <OrderForm createOrder={createOrder} />
-                        <Orders
+                        <MyOrders
                             share_id={share.id}
                             orderBook={orderBook}
                             setOrderBook={setOrderBook}

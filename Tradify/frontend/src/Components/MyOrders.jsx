@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ApiCall from "./ApiCall";
 
-const Orders = ({ share_id, orderBook, setOrderBook }) => {
+const MyOrders = ({ share_id, orderBook, setOrderBook }) => {
     const [orders] = ApiCall(
         "GET",
         `/orders/${localStorage.getItem("username")}/${share_id}`,
@@ -60,4 +60,4 @@ const Orders = ({ share_id, orderBook, setOrderBook }) => {
     );
 };
 
-export default Orders;
+export default MyOrders;

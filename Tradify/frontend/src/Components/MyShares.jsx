@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ApiCall from "./ApiCall";
 import ApiError from "./ApiError";
 
-const OwnwedShares = ({ share_id }) => {
+const MyShares = ({ share_id }) => {
     const [sharesCount, setSharesCount] = useState(0);
 
     const [shares, isLoading, error] = ApiCall(
@@ -29,4 +29,4 @@ const OwnwedShares = ({ share_id }) => {
     );
 };
 
-export default OwnwedShares;
+export default MyShares;
