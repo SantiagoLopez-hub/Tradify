@@ -29,7 +29,6 @@ const StockGraph = ({ share_id }) => {
             labels: labels,
             datasets: [
                 {
-                    label: "Price",
                     data: data,
                     fill: false,
                     backgroundColor: "rgb(0, 0, 0, 0.5)",
