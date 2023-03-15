@@ -4,7 +4,6 @@ import { getMyShares } from "./MyDetailsUtils";
 
 const MyShares = ({ share_id }) => {
     const [sharesCount, setSharesCount] = useState(0);
-
     const [shares, isLoading, error] = getMyShares(share_id);
 
     useEffect(() => {
