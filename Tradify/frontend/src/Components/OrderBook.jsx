@@ -34,16 +34,22 @@ const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {orderBook.map((order) => {
-                        if (order.orderType.id === 1) {
-                            return (
-                                <tr key={order.id}>
-                                    <td>{order.id}</td>
-                                    <td>{order.price}</td>
-                                </tr>
-                            );
-                        }
-                    })}
+                    {orderBook
+                        .sort(
+                            (first, second) =>
+                                parseFloat(second.price) -
+                                parseFloat(first.price)
+                        )
+                        .map((order) => {
+                            if (order.orderType.id === 1) {
+                                return (
+                                    <tr key={order.id}>
+                                        <td>{order.price}</td>
+                                        <td>{order.quantity}</td>
+                                    </tr>
+                                );
+                            }
+                        })}
                 </tbody>
             </table>
 
@@ -63,16 +69,22 @@ const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {orderBook.map((order) => {
-                        if (order.orderType.id === 2) {
-                            return (
-                                <tr key={order.id}>
-                                    <td>{order.price}</td>
-                                    <td>{order.quantity}</td>
-                                </tr>
-                            );
-                        }
-                    })}
+                    {orderBook
+                        .sort(
+                            (first, second) =>
+                                parseFloat(first.price) -
+                                parseFloat(second.price)
+                        )
+                        .map((order) => {
+                            if (order.orderType.id === 2) {
+                                return (
+                                    <tr key={order.id}>
+                                        <td>{order.price}</td>
+                                        <td>{order.quantity}</td>
+                                    </tr>
+                                );
+                            }
+                        })}
                 </tbody>
             </table>
         </div>

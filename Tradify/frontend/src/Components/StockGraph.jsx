@@ -4,7 +4,6 @@ import { getTradingHistory } from "./SystemUtils";
 
 const StockGraph = ({ share_id }) => {
     const [graphData, setGraphData] = useState([]);
-
     const [tradingHistory] = getTradingHistory(share_id);
 
     useEffect(() => {
