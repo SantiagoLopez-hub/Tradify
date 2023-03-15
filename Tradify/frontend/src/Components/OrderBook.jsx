@@ -1,14 +1,8 @@
 import { useEffect } from "react";
-import ApiCall from "./ApiCall";
+import { getOrderBook } from "./SystemUtils";
 
 const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
-    const [orders] = ApiCall("GET", `/orders/${share_id}`, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-    });
-
-    console.log(orders);
+    const [orders] = getOrderBook(share_id);
 
     useEffect(() => {
         if (orders.length > 0) {
@@ -73,8 +67,8 @@ const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
                         if (order.orderType.id === 2) {
                             return (
                                 <tr key={order.id}>
-                                    <td>{order.id}</td>
                                     <td>{order.price}</td>
+                                    <td>{order.quantity}</td>
                                 </tr>
                             );
                         }

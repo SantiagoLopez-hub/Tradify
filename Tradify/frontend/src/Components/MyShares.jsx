@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
-import ApiCall from "./ApiCall";
 import ApiError from "./ApiError";
+import { getMyShares } from "./MyDetailsUtils";
 
 const MyShares = ({ share_id }) => {
     const [sharesCount, setSharesCount] = useState(0);
 
-    const [shares, isLoading, error] = ApiCall(
-        "GET",
-        `/users/${localStorage.getItem("username")}/${share_id}`,
-        {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-        }
-    );
+    const [shares, isLoading, error] = getMyShares(share_id);
 
     useEffect(() => {
         setSharesCount(shares.quantity || 0);

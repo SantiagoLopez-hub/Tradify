@@ -1,22 +1,16 @@
 import { useEffect } from "react";
-import ApiCall from "./ApiCall";
+import { getMyOrders } from "./MyDetailsUtils";
 
 const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
-    const [orders] = ApiCall(
-        "GET",
-        `/orders/${localStorage.getItem("username")}/${share_id}`,
-        {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-        }
-    );
+    const [orders] = getMyOrders(share_id);
 
     useEffect(() => {
         if (orders.length > 0) {
             setMyOrders((previous) => [...previous, ...orders]);
         }
     }, [orders]);
+
+    console.log(orders);
 
     return myOrders.length === 0 ? (
         <table className="table">

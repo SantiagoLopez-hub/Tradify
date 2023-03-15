@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
 import { Graph } from "./Graph";
-import ApiCall from "./ApiCall";
+import { getTradingHistory } from "./SystemUtils";
 
 const StockGraph = ({ share_id }) => {
     const [graphData, setGraphData] = useState([]);
 
-    const [tradingHistory] = ApiCall(
-        "GET",
-        `/shares/${share_id}/trading-history`,
-        {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-            },
-        }
-    );
+    const [tradingHistory] = getTradingHistory(share_id);
 
     useEffect(() => {
         let labels = [],
