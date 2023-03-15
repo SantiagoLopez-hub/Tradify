@@ -46,8 +46,14 @@ const Trade = () => {
     };
 
     const onOrderReceived = (order) => {
-        setMyOrders((previous) => [JSON.parse(order.body), ...previous]);
         setOrderBook((previous) => [JSON.parse(order.body), ...previous]);
+
+        if (
+            JSON.parse(order.body).user.username ==
+            localStorage.getItem("username")
+        ) {
+            setMyOrders((previous) => [JSON.parse(order.body), ...previous]);
+        }
     };
 
     const createOrder = (order_type, order) => {
