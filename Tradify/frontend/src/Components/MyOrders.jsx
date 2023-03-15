@@ -10,8 +10,6 @@ const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
         }
     }, [orders]);
 
-    console.log(orders);
-
     return myOrders.length === 0 ? (
         <table className="table">
             <thead>
