@@ -9,10 +9,12 @@ import OrderForm from "../Components/OrderForm";
 import MyOrders from "../Components/MyOrders";
 import MyShares from "../Components/MyShares";
 import StockGraph from "../Components/StockGraph";
+import OrderBook from "../Components/OrderBook";
 
 const Trade = () => {
     const { id } = useParams();
     const [err, setErr] = useState(false);
+    const [myOrders, setMyOrders] = useState([]);
     const [orderBook, setOrderBook] = useState([]);
     const stomp = useRef(null);
     const [share, isLoading, error] = ApiCall("GET", "/shares/" + id, {
@@ -44,6 +46,7 @@ const Trade = () => {
     };
 
     const onOrderReceived = (order) => {
+        setMyOrders((previous) => [JSON.parse(order.body), ...previous]);
         setOrderBook((previous) => [JSON.parse(order.body), ...previous]);
     };
 
@@ -95,10 +98,15 @@ const Trade = () => {
                         <OrderForm createOrder={createOrder} />
                         <MyOrders
                             share_id={share.id}
-                            orderBook={orderBook}
-                            setOrderBook={setOrderBook}
+                            myOrders={myOrders}
+                            setMyOrders={setMyOrders}
                         />
                     </div>
+                    <OrderBook
+                        share_id={share.id}
+                        orderBook={orderBook}
+                        setOrderBook={setOrderBook}
+                    />
                     <News share_id={share.id} />
                 </>
             )}

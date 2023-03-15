@@ -42,7 +42,8 @@ input[type="number"] {
     position: relative;
 }
 
-#myOrdersTable tr:nth-child(2) th {
+#myOrdersTable tr:nth-child(2) th,
+#orderBook tr:nth-child(-n + 3) th {
     background: white;
     position: sticky;
     top: 0;
@@ -50,6 +51,24 @@ input[type="number"] {
 
 #myOrdersTable {
     max-height: 500px;
+}
+
+#orderBook {
+    max-height: 750px;
+    width: 100%;
+}
+
+#orderBook table {
+    width: 50%;
+    float: left;
+}
+
+#orderBook #buy tr {
+    background: #ddffe6;
+}
+
+#orderBook #sell tr {
+    background: #ffe6e6;
 }
 
 @media only screen and (min-width: 1075px) {
