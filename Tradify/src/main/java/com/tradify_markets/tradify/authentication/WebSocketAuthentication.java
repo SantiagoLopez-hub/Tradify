@@ -16,7 +16,7 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import java.util.Objects;
 
 @AllArgsConstructor
-public class WebSocketInterceptor {
+public class WebSocketAuthentication {
     private final UserService userService;
 
     public ChannelInterceptor intercept(){

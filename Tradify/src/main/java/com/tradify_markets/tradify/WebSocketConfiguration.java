@@ -1,6 +1,6 @@
 package com.tradify_markets.tradify;
 
-import com.tradify_markets.tradify.authentication.WebSocketInterceptor;
+import com.tradify_markets.tradify.authentication.WebSocketAuthentication;
 import com.tradify_markets.tradify.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
-        WebSocketInterceptor interceptor = new WebSocketInterceptor(userService);
+        WebSocketAuthentication interceptor = new WebSocketAuthentication(userService);
 
         registration.interceptors(interceptor.intercept());
     }
