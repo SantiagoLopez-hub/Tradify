@@ -16,20 +16,19 @@ const StockGraph = ({ share_id }) => {
             return null;
         });
 
-        let graph_Data = {
+        setGraphData({
             labels: labels,
             datasets: [
                 {
                     data: data,
                     fill: false,
-                    backgroundColor: "rgb(0, 0, 0, 0.5)",
-                    borderColor: "rgba(0, 0, 0, 0.25)",
-                    tension: 0.2,
+                    backgroundColor: "#FFF",
+                    borderColor:
+                        data[0] < data[data.length - 1] ? "#00AB00" : "#FF0000",
+                    tension: 0.25,
                 },
             ],
-        };
-
-        setGraphData(graph_Data);
+        });
     }, [tradingHistory]);
 
     return graphData?.labels?.length > 0 ? (
