@@ -54,7 +54,7 @@ input[type="number"] {
 }
 
 #orderBook {
-    max-height: 750px;
+    max-height: 800px;
     width: 100%;
 }
 

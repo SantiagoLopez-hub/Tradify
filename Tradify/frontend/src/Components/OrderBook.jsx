@@ -3,6 +3,7 @@ import { getOrderBook } from "./SystemUtils";
 
 const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
     const [orders] = getOrderBook(share_id);
+    let count = 0;
 
     useEffect(() => {
         if (orders.length > 0) {
@@ -41,7 +42,10 @@ const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
                                 parseFloat(first.price)
                         )
                         .map((order) => {
+                            if (count >= 15) return;
+
                             if (order.orderType.id === 1) {
+                                count++;
                                 return (
                                     <tr key={order.id}>
                                         <td>{order.price}</td>
@@ -76,7 +80,10 @@ const OrderBook = ({ share_id, orderBook, setOrderBook }) => {
                                 parseFloat(second.price)
                         )
                         .map((order) => {
+                            if (count >= 30) return;
+
                             if (order.orderType.id === 2) {
+                                count++;
                                 return (
                                     <tr key={order.id}>
                                         <td>{order.price}</td>
