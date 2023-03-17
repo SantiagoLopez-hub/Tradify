@@ -11,7 +11,7 @@ const StockGraph = ({ share_id }) => {
             data = [];
 
         tradingHistory.map((item) => {
-            labels.push(item.date.split("T")[0]);
+            labels.push(item.createdAt.split("T")[0]);
             data.push(item.price);
             return null;
         });

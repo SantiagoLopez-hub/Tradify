@@ -32,5 +32,6 @@ public class Order {
 
     private Integer quantity;
     private double price;
-    private Date date;
+    private Date createdAt;
+    private Date updatedAt;
 }

@@ -13,9 +13,13 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findAllByUser(User user);
-    List<Order> findByUserAndShareOrderByIdDesc(User user, Share share);
-    List<Order> findByShareAndStatusOrderByDateAsc(Share share, OrderStatus status);
 
-    @Query("SELECT o FROM Order o WHERE o.share = ?1 AND o.status.id = 1 ORDER BY o.date DESC")
+    List<Order> findByUserAndShareOrderByIdDesc(User user, Share share);
+
+    List<Order> findByShareAndStatusOrderByCreatedAtAsc(Share share, OrderStatus status);
+
+    @Query("SELECT o FROM Order o WHERE o.share = ?1 AND o.status.id = 1 ORDER BY o.createdAt DESC")
     List<Order> findByShareOrderByIdDesc(Share share);
+
+    List<Order> findByOrderTypeIdAndStatusIdAndPriceAfter(Integer orderTypeId, Integer statusId, Double price);
 }

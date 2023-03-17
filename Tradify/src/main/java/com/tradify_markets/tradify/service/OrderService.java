@@ -23,7 +23,7 @@ public class OrderService {
     private final UserRepository userRepository;
     private final ShareRepository shareRepository;
 
-    public Order create(Order order){
+    public Order create(Order order) {
         return orderRepository.save(order);
     }
 
@@ -34,7 +34,7 @@ public class OrderService {
     public List<Order> findExecutedByShare(Integer id) {
         Share share = shareRepository.findById(id).orElse(null);
         OrderStatus status = orderStatusRepository.findByName("Executed");
-        return orderRepository.findByShareAndStatusOrderByDateAsc(share, status);
+        return orderRepository.findByShareAndStatusOrderByCreatedAtAsc(share, status);
     }
 
     public List<Order> findByUserAndShare(String username, Integer shareId) {
@@ -48,5 +48,13 @@ public class OrderService {
         Share share = shareRepository.findById(shareId).orElse(null);
 
         return orderRepository.findByShareOrderByIdDesc(share);
+    }
+
+    public List<Order> findOrdersByPrice(Integer orderTypeId, Integer statusId, Double price) {
+        return orderRepository.findByOrderTypeIdAndStatusIdAndPriceAfter(orderTypeId, statusId, price);
+    }
+
+    public void save(Order order){
+        orderRepository.save(order);
     }
 }

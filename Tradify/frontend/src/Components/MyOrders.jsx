@@ -43,7 +43,9 @@ const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
                             <td>{order.price}</td>
                             <td>{order.quantity}</td>
                             <td>{order.status.name}</td>
-                            <td>{new Date(order.date).toLocaleString()}</td>
+                            <td>
+                                {new Date(order.createdAt).toLocaleString()}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
