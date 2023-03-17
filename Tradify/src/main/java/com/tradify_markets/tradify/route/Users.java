@@ -47,7 +47,7 @@ public class Users {
                 .password(password)
                 .build();
 
-        return userService.saveUser(user);
+        return userService.encodeAndSave(user);
     }
 
     @GetMapping("/{id}")

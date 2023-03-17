@@ -30,4 +30,8 @@ public class UserShareService {
 
         return userShareRepository.findByUserAndShare(user, share);
     }
+
+    public void save(UserShare userShare) {
+        userShareRepository.save(userShare);
+    }
 }
