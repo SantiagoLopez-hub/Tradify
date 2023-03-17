@@ -218,6 +218,7 @@ public class TestData {
                         .price(200)
                         .status(orderStatusRepository.findById(1).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.AUGUST, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.AUGUST, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -231,6 +232,7 @@ public class TestData {
                         .price(100)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.JULY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JULY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -244,6 +246,7 @@ public class TestData {
                         .price(1000)
                         .status(orderStatusRepository.findById(3).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -257,6 +260,7 @@ public class TestData {
                         .price(54)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -270,6 +274,7 @@ public class TestData {
                         .price(76)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -283,6 +288,7 @@ public class TestData {
                         .price(15)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -296,6 +302,7 @@ public class TestData {
                         .price(35)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -309,6 +316,7 @@ public class TestData {
                         .price(20)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
 
@@ -329,6 +337,7 @@ public class TestData {
                         .price(154.73)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -342,6 +351,7 @@ public class TestData {
                         .price(130)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -355,6 +365,7 @@ public class TestData {
                         .price(174.55)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -368,6 +379,7 @@ public class TestData {
                         .price(126.36)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -381,6 +393,7 @@ public class TestData {
                         .price(168.50)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -394,6 +407,7 @@ public class TestData {
                         .price(178.96)
                         .status(orderStatusRepository.findById(2).orElse(null))
                         .createdAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
     }

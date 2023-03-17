@@ -30,7 +30,7 @@ public class OrderService {
         Share share = shareRepository.findById(id).orElse(null);
         OrderStatus status = orderStatusRepository.findByName("Executed");
         OrderType buyOrderType = orderTypeRepository.findByName("Buy");
-        return orderRepository.findByShareAndStatusAndOrderTypeOrderByUpdatedAtDesc(share, status, buyOrderType);
+        return orderRepository.findByShareAndStatusAndOrderTypeOrderByUpdatedAtAsc(share, status, buyOrderType);
     }
 
     public List<Order> findByUserAndShare(String username, Integer shareId) {
