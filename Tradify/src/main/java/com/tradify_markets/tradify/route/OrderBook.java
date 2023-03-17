@@ -54,23 +54,23 @@ public class OrderBook {
         verifyBalances(order, user);
 
         if (order.getOrderType().getId() == 1) {
-            executeTransaction(order);
+            executeBuyTransaction(order);
         }
 
         return orderService.create(order);
     }
 
-    public void executeTransaction(Order order) {
-        List<Order> sellOrders = orderService.findSellOrders(order.getPrice());
+    public void executeBuyTransaction(Order from) {
+        List<Order> orders = orderService.findSellOrders(from.getPrice());
 
-        if (sellOrders.size() > 0) {
-            for (Order sellOrder : sellOrders) {
-                if (sellOrder.getQuantity() > order.getQuantity()) {
-                    transaction(order, sellOrder);
-                } else if (sellOrder.getQuantity() < order.getQuantity()) {
-                    transaction(sellOrder, order);
+        if (orders.size() > 0) {
+            for (Order order : orders) {
+                if (order.getQuantity() > from.getQuantity()) {
+                    transaction(from, order);
+                } else if (order.getQuantity() < from.getQuantity()) {
+                    transaction(order, from);
                 } else {
-                    equalTransaction(order, sellOrder);
+                    equalTransaction(from, order);
                 }
             }
         }
