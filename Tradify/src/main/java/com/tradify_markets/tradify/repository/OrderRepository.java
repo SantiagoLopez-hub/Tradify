@@ -21,5 +21,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("SELECT o FROM Order o WHERE o.share = ?1 AND o.status.id = 1 ORDER BY o.createdAt DESC")
     List<Order> findByShareOrderByIdDesc(Share share);
 
-    List<Order> findByOrderTypeIdAndStatusIdAndPriceAfter(Integer orderTypeId, Integer statusId, Double price);
+    @Query("SELECT o FROM Order o WHERE o.orderType.id=2 AND o.status.id = 1 AND o.price <= ?1 ORDER BY o.createdAt ASC")
+    List<Order> findSellOrders(Double price);
 }

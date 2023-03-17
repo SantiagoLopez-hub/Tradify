@@ -50,8 +50,8 @@ public class OrderService {
         return orderRepository.findByShareOrderByIdDesc(share);
     }
 
-    public List<Order> findOrdersByPrice(Integer orderTypeId, Integer statusId, Double price) {
-        return orderRepository.findByOrderTypeIdAndStatusIdAndPriceAfter(orderTypeId, statusId, price);
+    public List<Order> findSellOrders(Double price) {
+        return orderRepository.findSellOrders(price);
     }
 
     public void save(Order order){
