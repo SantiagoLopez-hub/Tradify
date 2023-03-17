@@ -19,7 +19,7 @@ public class Share {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(targetEntity = NewsModel.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(targetEntity = NewsModel.class, cascade = CascadeType.ALL)
     @Builder.Default
     private List<NewsModel> news = new ArrayList<>();
 
