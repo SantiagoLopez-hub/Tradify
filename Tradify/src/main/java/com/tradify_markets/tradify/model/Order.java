@@ -31,6 +31,7 @@ public class Order {
     private OrderStatus status;
 
     private Integer quantity;
+    private Integer originalQuantity;
     private double price;
     private Date createdAt;
     private Date updatedAt;

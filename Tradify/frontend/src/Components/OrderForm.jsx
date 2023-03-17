@@ -41,6 +41,7 @@ const OrderForm = ({ createOrder }) => {
                             createOrder(1, {
                                 price: price,
                                 quantity: amount,
+                                originalQuantity: amount,
                                 user: {
                                     username: localStorage.getItem("username"),
                                 },
@@ -58,6 +59,7 @@ const OrderForm = ({ createOrder }) => {
                             createOrder(2, {
                                 price: price,
                                 quantity: amount,
+                                originalQuantity: amount,
                                 user: {
                                     username: localStorage.getItem("username"),
                                 },

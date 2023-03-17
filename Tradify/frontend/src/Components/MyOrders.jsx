@@ -31,6 +31,7 @@ const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
                         <th scope="col">Type</th>
                         <th scope="col">Price</th>
                         <th scope="col">Quantity</th>
+                        <th scope="col">Remaining Quantity</th>
                         <th scope="col">Status</th>
                         <th scope="col">Date</th>
                     </tr>
@@ -41,6 +42,7 @@ const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
                             <td>{order.id}</td>
                             <td>{order.orderType.name}</td>
                             <td>{order.price}</td>
+                            <td>{order.originalQuantity}</td>
                             <td>{order.quantity}</td>
                             <td>{order.status.name}</td>
                             <td>
