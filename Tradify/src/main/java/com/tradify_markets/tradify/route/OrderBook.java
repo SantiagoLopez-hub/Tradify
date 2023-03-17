@@ -111,23 +111,7 @@ public class OrderBook {
     }
 
     private void buyTransaction(Order order, Order seller) {
-        // Update seller balance
-        seller.getUser().setBalance(seller.getUser().getBalance() + seller.getPrice() * seller.getQuantity());
-        userService.save(seller.getUser());
-
-        // Update buyer balance
-        order.getUser().setBalance(order.getUser().getBalance() - seller.getPrice() * seller.getQuantity());
-        userService.save(order.getUser());
-
-        // Update seller shares
-        UserShare sellerShare = userShareService.findByUser(seller.getUser().getId()).get(0);
-        sellerShare.setQuantity(sellerShare.getQuantity() - seller.getQuantity());
-        userShareService.save(sellerShare);
-
-        // Update buyer shares
-        UserShare buyerShare = userShareService.findByUser(order.getUser().getId()).get(0);
-        buyerShare.setQuantity(buyerShare.getQuantity() + seller.getQuantity());
-        userShareService.save(buyerShare);
+        updateBalances(seller, order);
 
         // Update buyer order
         order.setQuantity(order.getQuantity() - seller.getQuantity());

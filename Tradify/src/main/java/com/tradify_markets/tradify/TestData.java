@@ -209,20 +209,6 @@ public class TestData {
         * */
         orderRepository.save(
                 Order.builder()
-                        .id(1)
-                        .user(userService.findById(1))
-                        .share(shareRepository.findById(1).orElse(null))
-                        .orderType(orderTypeRepository.findById(1).orElse(null))
-                        .quantity(4)
-                        .originalQuantity(4)
-                        .price(200)
-                        .status(orderStatusRepository.findById(1).orElse(null))
-                        .createdAt(new GregorianCalendar(2022, Calendar.AUGUST, 11).getTime())
-                        .updatedAt(new GregorianCalendar(2022, Calendar.AUGUST, 11).getTime())
-                        .build()
-        );
-        orderRepository.save(
-                Order.builder()
                         .id(2)
                         .user(userService.findById(1))
                         .share(shareRepository.findById(1).orElse(null))
