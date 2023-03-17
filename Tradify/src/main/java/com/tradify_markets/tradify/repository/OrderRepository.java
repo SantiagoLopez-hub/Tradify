@@ -1,9 +1,6 @@
 package com.tradify_markets.tradify.repository;
 
-import com.tradify_markets.tradify.model.Order;
-import com.tradify_markets.tradify.model.OrderStatus;
-import com.tradify_markets.tradify.model.Share;
-import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -16,8 +13,9 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByUserAndShareOrderByIdDesc(User user, Share share);
 
-    List<Order> findByShareAndStatusOrderByCreatedAtAsc(Share share, OrderStatus status);
+    List<Order> findByShareAndStatusAndOrderTypeOrderByUpdatedAtDesc(Share share, OrderStatus status, OrderType orderType);
 
+    @Query("SELECT o FROM Order o WHERE o.user = ?1 AND o.status.id = 1")
     List<Order> findOpenOrdersByUser(User user);
 
     @Query("SELECT o FROM Order o WHERE o.share = ?1 AND o.status.id = 1 ORDER BY o.createdAt DESC")

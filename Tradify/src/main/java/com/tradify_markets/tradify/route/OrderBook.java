@@ -51,16 +51,16 @@ public class OrderBook {
         order.setOrderType(orderType);
         order.setStatus(orderStatus);
         order.setCreatedAt(new Date());
+        verifyBalances(order, user);
 
         if (order.getOrderType().getId() == 1) {
-            executeTransaction(order, user);
+            executeTransaction(order);
         }
 
         return orderService.create(order);
     }
 
-    public boolean executeTransaction(Order order, User user) {
-        verifyBalances(order, user);
+    public boolean executeTransaction(Order order) {
         List<Order> sellOrders = orderService.findSellOrders(order.getPrice());
 
 //        order.getUser().setBalance(order.getUser().getBalance() - order.getPrice() * order.getQuantity());
