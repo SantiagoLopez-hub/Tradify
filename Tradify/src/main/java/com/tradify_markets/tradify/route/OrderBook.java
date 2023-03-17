@@ -53,13 +53,14 @@ public class OrderBook {
         order.setCreatedAt(new Date());
 
         if (order.getOrderType().getId() == 1) {
-            executeTransaction(order);
+            executeTransaction(order, user);
         }
 
         return orderService.create(order);
     }
 
-    public boolean executeTransaction(Order order) {
+    public boolean executeTransaction(Order order, User user) {
+        verifyBalances(order, user);
         List<Order> sellOrders = orderService.findSellOrders(order.getPrice());
 
 //        order.getUser().setBalance(order.getUser().getBalance() - order.getPrice() * order.getQuantity());
@@ -67,7 +68,7 @@ public class OrderBook {
 
         System.out.println(sellOrders);
         if (sellOrders.size() > 0) {
-        System.out.println("sellOrders: " + sellOrders.size() + " " + sellOrders);
+            System.out.println("sellOrders: " + sellOrders.size() + " " + sellOrders);
             for (Order sellOrder : sellOrders) {
                 System.out.println(sellOrder.getPrice() + " " + order.getPrice() + " " + sellOrder.getQuantity());
                 if (sellOrder.getQuantity() > order.getQuantity()) {
@@ -99,8 +100,20 @@ public class OrderBook {
                     return true;
                 } else if (sellOrder.getQuantity() < order.getQuantity()) {
                     System.out.println("second");
+                    order.setQuantity(order.getQuantity() - sellOrder.getQuantity());
+                    sellOrder.setQuantity(0);
+                    sellOrder.setStatus(orderStatusRepository.findByName("Executed"));
+                    sellOrder.setUpdatedAt(new Date());
+                    orderService.save(order);
+                    orderService.save(sellOrder);
                 } else {
                     System.out.println("third");
+                    order.setQuantity(0);
+                    sellOrder.setQuantity(0);
+                    order.setStatus(orderStatusRepository.findByName("Executed"));
+                    sellOrder.setStatus(orderStatusRepository.findByName("Executed"));
+                    orderService.save(order);
+                    orderService.save(sellOrder);
                     return true;
                 }
             }
@@ -109,5 +122,26 @@ public class OrderBook {
         System.out.println("Shares end: " + userShareService.findByUser(order.getUser().getId()).get(0).getQuantity());
 
         return true;
+    }
+
+    public void verifyBalances(Order order, User user) {
+        List<Order> openOrders = orderService.findOpenOrders(user);
+
+        if (order.getOrderType().getId() == 1) {
+            if (user.getBalance() < order.getPrice() * order.getQuantity() + openOrders.stream().mapToDouble(o -> o.getPrice() * o.getQuantity()).sum()) {
+                throw new IllegalArgumentException("Insufficient balance");
+            }
+        }
+
+        if (order.getOrderType().getId() == 2) {
+            List<UserShare> userShares = userShareService.findByUser(user.getId());
+
+            if (userShares.size() == 0) {
+                throw new IllegalArgumentException("You don't have any shares");
+            }
+            if (userShares.get(0).getQuantity() < order.getQuantity() + openOrders.stream().mapToInt(Order::getQuantity).sum()) {
+                throw new IllegalArgumentException("You don't have enough shares");
+            }
+        }
     }
 }

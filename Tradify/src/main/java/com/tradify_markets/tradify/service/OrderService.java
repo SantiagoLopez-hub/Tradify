@@ -54,7 +54,11 @@ public class OrderService {
         return orderRepository.findSellOrders(price);
     }
 
-    public void save(Order order){
+    public void save(Order order) {
         orderRepository.save(order);
+    }
+
+    public List<Order> findOpenOrders(User user) {
+        return orderRepository.findOpenOrdersByUser(user);
     }
 }

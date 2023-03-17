@@ -18,6 +18,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByShareAndStatusOrderByCreatedAtAsc(Share share, OrderStatus status);
 
+    List<Order> findOpenOrdersByUser(User user);
+
     @Query("SELECT o FROM Order o WHERE o.share = ?1 AND o.status.id = 1 ORDER BY o.createdAt DESC")
     List<Order> findByShareOrderByIdDesc(Share share);
 
