@@ -13,7 +13,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByUserAndShareOrderByIdDesc(User user, Share share);
 
-    List<Order> findByShareAndStatusAndOrderTypeOrderByUpdatedAtAsc(Share share, OrderStatus status, OrderType orderType);
+    List<Order> findByShareAndStatusOrderByUpdatedAtAsc(Share share, OrderStatus status);
 
     @Query("SELECT o FROM Order o WHERE o.user = ?1 AND o.status.id = 1")
     List<Order> findOpenOrdersByUser(User user);
