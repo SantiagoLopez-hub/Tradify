@@ -56,4 +56,8 @@ public class OrderService {
     public List<Order> findOpenOrders(User user) {
         return orderRepository.findOpenOrdersByUser(user);
     }
+
+    public List<Order> findBuyOrders(Double price) {
+        return orderRepository.findBuyOrders(price);
+    }
 }

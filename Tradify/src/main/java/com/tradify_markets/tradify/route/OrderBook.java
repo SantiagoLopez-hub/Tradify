@@ -55,22 +55,65 @@ public class OrderBook {
 
         if (order.getOrderType().getId() == 1) {
             executeBuyTransaction(order);
+        } else if (order.getOrderType().getId() == 2) {
+            executeSellTransaction(order);
         }
 
         return orderService.create(order);
     }
 
-    public void executeBuyTransaction(Order from) {
-        List<Order> orders = orderService.findSellOrders(from.getPrice());
+    private void executeSellTransaction(Order seller) {
+        List<Order> orders = orderService.findBuyOrders(seller.getPrice());
 
         if (orders.size() > 0) {
             for (Order order : orders) {
-                if (order.getQuantity() > from.getQuantity()) {
-                    transaction(from, order);
-                } else if (order.getQuantity() < from.getQuantity()) {
-                    transaction(order, from);
+                if (order.getQuantity() > seller.getQuantity()) {
+                    // Update seller balance
+                    seller.getUser().setBalance(seller.getUser().getBalance() + seller.getPrice() * seller.getQuantity());
+                    userService.save(seller.getUser());
+
+                    // Update buyer balance
+                    order.getUser().setBalance(order.getUser().getBalance() - seller.getPrice() * seller.getQuantity());
+                    userService.save(order.getUser());
+
+                    // Update seller shares
+                    UserShare sellerShare = userShareService.findByUser(seller.getUser().getId()).get(0);
+                    sellerShare.setQuantity(sellerShare.getQuantity() - seller.getQuantity());
+                    userShareService.save(sellerShare);
+
+                    // Update buyer shares
+                    UserShare buyerShare = userShareService.findByUser(order.getUser().getId()).get(0);
+                    buyerShare.setQuantity(buyerShare.getQuantity() + seller.getQuantity());
+                    userShareService.save(buyerShare);
+
+                    // Update buyer order
+                    order.setQuantity(order.getQuantity() - seller.getQuantity());
+                    order.setUpdatedAt(new Date());
+                    orderService.save(order);
+
+                    // Update seller order
+                    seller.setQuantity(0);
+                    seller.setStatus(orderStatusRepository.findByName("Executed"));
+                    seller.setUpdatedAt(new Date());
+                    orderService.save(seller);
+                } else if (order.getQuantity() < seller.getQuantity()) {
                 } else {
-                    equalTransaction(from, order);
+                }
+            }
+        }
+    }
+
+    public void executeBuyTransaction(Order buyer) {
+        List<Order> orders = orderService.findSellOrders(buyer.getPrice());
+
+        if (orders.size() > 0) {
+            for (Order order : orders) {
+                if (order.getQuantity() > buyer.getQuantity()) {
+                    transaction(buyer, order);
+                } else if (order.getQuantity() < buyer.getQuantity()) {
+                    transaction(order, buyer);
+                } else {
+                    equalTransaction(buyer, order);
                 }
             }
         }
@@ -124,7 +167,8 @@ public class OrderBook {
         List<Order> openOrders = orderService.findOpenOrders(user);
 
         if (order.getOrderType().getId() == 1) {
-            if (user.getBalance() < order.getPrice() * order.getQuantity() + openOrders.stream().mapToDouble(o -> o.getPrice() * o.getQuantity()).sum()) {
+            if (user.getBalance() < order.getPrice() * order.getQuantity() +
+                    openOrders.stream().mapToDouble(o -> o.getPrice() * o.getQuantity()).sum()) {
                 throw new IllegalArgumentException("Insufficient balance");
             }
         }
@@ -135,7 +179,8 @@ public class OrderBook {
             if (userShares.size() == 0) {
                 throw new IllegalArgumentException("You don't have any shares");
             }
-            if (userShares.get(0).getQuantity() < order.getQuantity() + openOrders.stream().mapToInt(Order::getQuantity).sum()) {
+            if (userShares.get(0).getQuantity() < order.getQuantity() +
+                    openOrders.stream().mapToInt(Order::getQuantity).sum()) {
                 throw new IllegalArgumentException("You don't have enough shares");
             }
         }
