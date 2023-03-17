@@ -69,13 +69,10 @@ public class OrderBook {
             for (Order order : orders) {
                 if (order.getQuantity() > seller.getQuantity()) {
                     buyTransaction(order, seller);
-                    return;
                 } else if (order.getQuantity() < seller.getQuantity()) {
                     buyTransaction(seller, order);
-                    return;
                 } else {
                     equalTransaction(order, seller);
-                    return;
                 }
             }
         }
