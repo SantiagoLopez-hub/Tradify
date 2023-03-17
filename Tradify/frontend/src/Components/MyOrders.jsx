@@ -24,7 +24,7 @@ const MyOrders = ({ share_id, myOrders, setMyOrders }) => {
                 <thead>
                     <tr>
                         <th>My Orders</th>
-                        <th colSpan={5}></th>
+                        <th colSpan={6}></th>
                     </tr>
                     <tr>
                         <th scope="col">Reference Number</th>
