@@ -77,23 +77,7 @@ public class OrderBook {
     }
 
     private void equalTransaction(Order from, Order to) {
-        // Update buyer balance
-        from.getUser().setBalance(from.getUser().getBalance() - from.getPrice() * from.getQuantity());
-        userService.save(from.getUser());
-
-        // Update seller balance
-        to.getUser().setBalance(to.getUser().getBalance() + from.getPrice() * from.getQuantity());
-        userService.save(to.getUser());
-
-        // Update buyer shares
-        UserShare userShare = userShareService.findByUser(from.getUser().getId()).get(0);
-        userShare.setQuantity(userShare.getQuantity() + from.getQuantity());
-        userShareService.save(userShare);
-
-        // Update seller shares
-        UserShare sellerShare = userShareService.findByUser(to.getUser().getId()).get(0);
-        sellerShare.setQuantity(sellerShare.getQuantity() - from.getQuantity());
-        userShareService.save(sellerShare);
+        updateBalances(from, to);
 
         from.setQuantity(0);
         to.setQuantity(0);
@@ -106,6 +90,17 @@ public class OrderBook {
     }
 
     public void transaction(Order from, Order to) {
+        updateBalances(from, to);
+
+        to.setQuantity(to.getQuantity() - from.getQuantity());
+        from.setQuantity(0);
+        from.setStatus(orderStatusRepository.findByName("Executed"));
+        from.setUpdatedAt(new Date());
+        orderService.save(from);
+        orderService.save(to);
+    }
+
+    private void updateBalances(Order from, Order to) {
         // Update buyer balance
         from.getUser().setBalance(from.getUser().getBalance() - from.getPrice() * from.getQuantity());
         userService.save(from.getUser());
@@ -123,13 +118,6 @@ public class OrderBook {
         UserShare sellerShare = userShareService.findByUser(to.getUser().getId()).get(0);
         sellerShare.setQuantity(sellerShare.getQuantity() - from.getQuantity());
         userShareService.save(sellerShare);
-
-        to.setQuantity(to.getQuantity() - from.getQuantity());
-        from.setQuantity(0);
-        from.setStatus(orderStatusRepository.findByName("Executed"));
-        from.setUpdatedAt(new Date());
-        orderService.save(from);
-        orderService.save(to);
     }
 
     public void verifyBalances(Order order, User user) {
