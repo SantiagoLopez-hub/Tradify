@@ -24,6 +24,10 @@ public class UserShareService {
         return userShareRepository.findAllByUser(userRepository.findById(id).orElse(null));
     }
 
+    public List<UserShare> findByUsername(String username) {
+        return userShareRepository.findAllByUser(userRepository.findByUsername(username));
+    }
+
     public UserShare findByUserAndShare(String username, Integer shareId) {
         User user = userRepository.findByUsername(username);
         Share share = shareRepository.findById(shareId).orElse(null);

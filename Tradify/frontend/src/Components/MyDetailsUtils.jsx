@@ -23,3 +23,11 @@ export const getMyShares = (share_id) => {
         }
     );
 };
+
+export const getAllMyShares = () => {
+    return ApiCall("GET", `/shares/user/${localStorage.getItem("username")}`, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+    });
+};
