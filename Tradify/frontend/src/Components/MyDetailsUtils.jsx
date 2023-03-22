@@ -31,3 +31,15 @@ export const getAllMyShares = () => {
         },
     });
 };
+
+export const getMyBalance = () => {
+    return ApiCall(
+        "GET",
+        `/users/${localStorage.getItem("username")}/balance`,
+        {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        }
+    );
+};

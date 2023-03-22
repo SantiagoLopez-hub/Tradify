@@ -75,6 +75,11 @@ public class Users {
         return userService.userShare(username, shareId);
     }
 
+    @GetMapping("/{username}/balance")
+    public Double userBalance(@PathVariable String username) {
+        return userService.userBalance(username);
+    }
+
     @GetMapping("/{id}/orders")
     public List<Order> userOrders(@PathVariable Integer id) {
         return userService.userOrders(id);

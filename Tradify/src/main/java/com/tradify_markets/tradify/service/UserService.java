@@ -82,4 +82,8 @@ public class UserService implements UserDetailsService {
     public UserShare userShare(String username, Integer shareId) {
         return userShareService.findByUserAndShare(username, shareId);
     }
+
+    public Double userBalance(String username) {
+        return userRepository.findByUsername(username).getBalance();
+    }
 }
