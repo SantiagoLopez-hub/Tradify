@@ -128,6 +128,7 @@ public class TestData {
                         .symbol("DFS")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#E55C20")
                         .build()
         );
         shareRepository.save(
@@ -137,6 +138,7 @@ public class TestData {
                         .symbol("AAPL")
                         .exchange("NASDAQ")
                         .price(100)
+                        .colour("#555555")
                         .build()
         );
         shareRepository.save(
@@ -146,6 +148,7 @@ public class TestData {
                         .symbol("AXP")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#002663")
                         .build()
         );
         shareRepository.save(
