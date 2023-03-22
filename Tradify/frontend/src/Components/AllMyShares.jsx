@@ -31,6 +31,9 @@ const AllMyShares = () => {
         ],
     };
 
+    // The following code is from user "jay" on Stack Overflow":
+    // https://stackoverflow.com/questions/53068562/add-text-inside-the-doughnut-chart-of-the-react-chartjs-2-box-to-react
+    // Posted on 25th May 2021
     const plugins = [
         {
             beforeDraw: (chart) => {
