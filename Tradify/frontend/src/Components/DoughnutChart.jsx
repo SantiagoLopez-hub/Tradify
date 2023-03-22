@@ -4,8 +4,8 @@ import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = ({ data }) => {
-    return <Doughnut data={data} />;
+const DoughnutChart = ({ data, plugins }) => {
+    return <Doughnut data={data} plugins={plugins} />;
 };
 
 export default DoughnutChart;
