@@ -7,7 +7,7 @@ const Portfolio = () => {
     return (
         <div>
             <h1>Portfolio</h1>
-            <h3>Balance: £{myBalance}</h3>
+            <h3>Balance: £{myBalance.toLocaleString("en-US")}</h3>
             <AllMyShares />
         </div>
     );
