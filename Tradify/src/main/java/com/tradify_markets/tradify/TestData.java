@@ -417,7 +417,7 @@ public class TestData {
         );
         userShareRepository.save(
                 UserShare.builder()
-                        .id(2)
+                        .id(3)
                         .share(shareRepository.findById(1).orElse(null))
                         .user(userService.findById(2))
                         .quantity(1)
