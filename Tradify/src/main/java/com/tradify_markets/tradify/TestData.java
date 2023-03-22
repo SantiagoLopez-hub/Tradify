@@ -158,6 +158,7 @@ public class TestData {
                         .symbol("HSBC")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#DB0011")
                         .build()
         );
         shareRepository.save(
@@ -167,6 +168,7 @@ public class TestData {
                         .symbol("JPM")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#003594")
                         .build()
         );
     }
@@ -429,6 +431,22 @@ public class TestData {
         userShareRepository.save(
                 UserShare.builder()
                         .id(4)
+                        .share(shareRepository.findById(4).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(2)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(5)
+                        .share(shareRepository.findById(5).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(1)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(6)
                         .share(shareRepository.findById(1).orElse(null))
                         .user(userService.findById(2))
                         .quantity(1)

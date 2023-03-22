@@ -37,6 +37,7 @@ public class Share {
     private String postCode;
     private String website;
     private String logo;
+    private String colour;
 
     private String ipoDate;
     private String marketCapitalization;
