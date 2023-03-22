@@ -410,14 +410,22 @@ public class TestData {
         userShareRepository.save(
                 UserShare.builder()
                         .id(2)
-                        .share(shareRepository.findById(1).orElse(null))
+                        .share(shareRepository.findById(2).orElse(null))
                         .user(userService.findById(1))
-                        .quantity(1)
+                        .quantity(5)
                         .build()
         );
         userShareRepository.save(
                 UserShare.builder()
                         .id(3)
+                        .share(shareRepository.findById(3).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(2)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(4)
                         .share(shareRepository.findById(1).orElse(null))
                         .user(userService.findById(2))
                         .quantity(1)
