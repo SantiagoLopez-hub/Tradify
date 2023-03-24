@@ -19,7 +19,7 @@ const MyShares = ({ share_id }) => {
 
             <span>My Shares: {sharesCount}</span>
             <br />
-            <span>My Balance: {balance}</span>
+            <span>My Balance: {balance.toLocaleString("en-US")}</span>
         </div>
     );
 };
