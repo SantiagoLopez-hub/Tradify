@@ -48,7 +48,7 @@ const AllMyShares = () => {
                     textX = Math.round(
                         (width - ctx.measureText(text).width) / 2
                     ),
-                    textY = height / 2;
+                    textY = height / 2.1;
                 ctx.fillText(text, textX, textY);
                 ctx.save();
             },

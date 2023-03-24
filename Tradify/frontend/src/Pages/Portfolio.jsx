@@ -8,7 +8,10 @@ const Portfolio = () => {
         <div>
             <h1>Portfolio</h1>
             <h3>Balance: £{myBalance.toLocaleString("en-US")}</h3>
-            <AllMyShares />
+
+            <div className="w-50 center">
+                <AllMyShares />
+            </div>
         </div>
     );
 };

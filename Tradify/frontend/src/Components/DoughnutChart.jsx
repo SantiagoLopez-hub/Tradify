@@ -5,7 +5,20 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = ({ data, plugins }) => {
-    return <Doughnut data={data} plugins={plugins} />;
+    return (
+        <Doughnut
+            data={data}
+            plugins={plugins}
+            options={{
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                },
+            }}
+        />
+    );
 };
 
 export default DoughnutChart;
