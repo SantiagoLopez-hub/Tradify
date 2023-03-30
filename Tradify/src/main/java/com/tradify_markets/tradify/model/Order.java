@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -26,8 +27,12 @@ public class Order {
     @OneToOne(fetch = FetchType.EAGER)
     private OrderType orderType;
 
+    @ManyToOne
+    private OrderStatus status;
+
     private Integer quantity;
+    private Integer originalQuantity;
     private double price;
-    private String date;
-    private Boolean isExecuted;
+    private Date createdAt;
+    private Date updatedAt;
 }

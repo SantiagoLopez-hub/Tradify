@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 90%;
+    margin: auto;
 }
 
 .App-header {
@@ -18,4 +20,75 @@
 
 .App-link {
     color: #61dafb;
+}
+
+.list-group-item:hover {
+    color: #105ed2;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+#myOrdersTable table {
+    text-align: left;
+    position: relative;
+}
+
+#myOrdersTable tr:nth-child(2) th,
+#orderBook tr:nth-child(-n + 3) th {
+    background: white;
+    position: sticky;
+    top: 0;
+}
+
+#myOrdersTable {
+    max-height: 500px;
+}
+
+#orderBook {
+    max-height: 800px;
+    width: 100%;
+}
+
+#orderBook table {
+    width: 50%;
+    float: left;
+}
+
+#orderBook #buy tr {
+    background: #ddffe6;
+}
+
+#orderBook #sell tr {
+    background: #ffe6e6;
+}
+
+.center {
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media only screen and (min-width: 1075px) {
+    #stockGraph {
+        width: 50%;
+        float: left;
+    }
+
+    #myOrdersTable {
+        max-height: 200px;
+    }
+
+    #myOrders {
+        width: 50%;
+        float: right;
+    }
 }
