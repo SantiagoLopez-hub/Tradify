@@ -4,25 +4,18 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tradify_markets.tradify.model.Role;
 import com.tradify_markets.tradify.model.User;
+import com.tradify_markets.tradify.utility.LetterColour;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class JWTTest {
     private String testToken;
     private User testUser;
-    private final String GREEN_LETTERS = "\u001B[32m";
-    private final String RESET_LETTERS = "\u001B[0m";
 
     @BeforeEach
     void setUp() {
@@ -83,7 +76,11 @@ class JWTTest {
             // Check expiration date exists and is 15 minutes from now
             assert expiration != null;
             assert expiration.getTime() - System.currentTimeMillis() <= 15 * 60 * 1000;
-            System.out.println(GREEN_LETTERS + "Refresh token test passed" + RESET_LETTERS);
+            System.out.println(
+                    LetterColour.GREEN.getColour() +
+                            "Refresh token test passed" +
+                            LetterColour.RESET.getColour()
+            );
         } else {
             throw new RuntimeException("Refresh token is missing");
         }
