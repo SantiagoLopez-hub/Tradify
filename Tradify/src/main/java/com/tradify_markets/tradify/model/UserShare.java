@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +24,6 @@ public class UserShare {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
+    @Min(value = 0, message = "Quantity must be greater than 0")
     private Integer quantity;
 }

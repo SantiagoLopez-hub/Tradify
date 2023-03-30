@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User saveUser(User user) {
+    public User encodeAndSave(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -47,6 +47,10 @@ public class UserService implements UserDetailsService {
     public User updateUser(Integer id, User user) {
         user.setId(id);
         return userRepository.save(user);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     public void deleteUser(Integer id) {
@@ -75,7 +79,11 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 
-    public List<UserShare> userShare(String username, Integer shareId) {
+    public UserShare userShare(String username, Integer shareId) {
         return userShareService.findByUserAndShare(username, shareId);
+    }
+
+    public Double userBalance(String username) {
+        return userRepository.findByUsername(username).getBalance();
     }
 }

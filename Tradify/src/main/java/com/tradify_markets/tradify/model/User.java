@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +20,10 @@ public class User {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Role role;
+
+    @Builder.Default
+    @Min(value = 0, message = "Balance must be greater or equal to 0")
+    private Double balance = 0.00;
 
     @Column(unique = true)
     private String username;

@@ -76,13 +76,13 @@ class UserServiceTest {
         User user = createUser(4);
 
         // When
-        when(userService.saveUser(user)).thenReturn(user);
+        when(userService.encodeAndSave(user)).thenReturn(user);
 
         // Then
-        assertEquals(user, userService.saveUser(user));
+        assertEquals(user, userService.encodeAndSave(user));
 
         System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " + userService.saveUser(user).getUsername() + RESET_LETTERS);
+        System.out.println(GREEN_LETTERS + "Actual Value: " + userService.encodeAndSave(user).getUsername() + RESET_LETTERS);
     }
 
     @Test
@@ -144,8 +144,8 @@ class UserServiceTest {
     void deleteUser() {
         // Given
         User user = createUser(9);
-        when(userService.saveUser(user)).thenReturn(user);
-        userService.saveUser(user);
+        when(userService.encodeAndSave(user)).thenReturn(user);
+        userService.encodeAndSave(user);
 
         // When
         doNothing().when(userRepository).deleteById(9);

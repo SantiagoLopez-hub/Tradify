@@ -20,7 +20,7 @@ public class ShareService {
     }
 
     public Share findById(@PathVariable Integer id) {
-        return shareRepository.findById(id).get();
+        return shareRepository.findById(id).orElse(null);
     }
 
     public Share updateShare(@PathVariable Integer id, @RequestBody Share share) {

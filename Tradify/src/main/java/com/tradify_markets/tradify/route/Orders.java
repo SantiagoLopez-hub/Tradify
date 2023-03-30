@@ -20,4 +20,9 @@ public class Orders {
     public List<Order> orders(@PathVariable String username, @PathVariable Integer shareId) {
         return orderService.findByUserAndShare(username, shareId);
     }
+
+    @GetMapping("/{shareId}")
+    public List<Order> orders(@PathVariable Integer shareId) {
+        return orderService.findByShare(shareId);
+    }
 }

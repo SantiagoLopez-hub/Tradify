@@ -6,6 +6,8 @@ import com.tradify_markets.tradify.service.UserService;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @AllArgsConstructor
 public class TestData {
@@ -40,7 +42,7 @@ public class TestData {
                         .build()
         );
 
-        userService.saveUser(
+        userService.encodeAndSave(
                 User.builder()
                         .id(1)
                         .username("username")
@@ -48,6 +50,7 @@ public class TestData {
                         .password("1234")
                         .firstName("John")
                         .lastName("Doe")
+                        .balance(10000.00)
                         .phoneNumber("1234456789")
                         .address("123 Main St")
                         .city("London")
@@ -56,13 +59,15 @@ public class TestData {
                         .role(roleRepository.findById(1).orElse(null))
                         .build()
         );
-        userService.saveUser(
+        userService.encodeAndSave(
                 User.builder()
                         .id(2)
+                        .username("user")
                         .email("Jgohn@gmail.com")
                         .password("password")
                         .firstName("John")
                         .lastName("Doe")
+                        .balance(20000.00)
                         .phoneNumber("1223456789")
                         .address("123 Street")
                         .city("Paris")
@@ -71,7 +76,7 @@ public class TestData {
                         .role(roleRepository.findById(2).orElse(null))
                         .build()
         );
-        userService.saveUser(
+        userService.encodeAndSave(
                 User.builder()
                         .id(3)
                         .email("Jon@gmail.com")
@@ -85,7 +90,7 @@ public class TestData {
                         .country("UK")
                         .build()
         );
-        userService.saveUser(
+        userService.encodeAndSave(
                 User.builder()
                         .id(4)
                         .email("Jochbn@gmail.com")
@@ -99,7 +104,7 @@ public class TestData {
                         .country("UK")
                         .build()
         );
-        userService.saveUser(
+        userService.encodeAndSave(
                 User.builder()
                         .id(5)
                         .email("John@bgmail.com")
@@ -123,6 +128,7 @@ public class TestData {
                         .symbol("DFS")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#E55C20")
                         .build()
         );
         shareRepository.save(
@@ -132,6 +138,7 @@ public class TestData {
                         .symbol("AAPL")
                         .exchange("NASDAQ")
                         .price(100)
+                        .colour("#555555")
                         .build()
         );
         shareRepository.save(
@@ -141,6 +148,7 @@ public class TestData {
                         .symbol("AXP")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#002663")
                         .build()
         );
         shareRepository.save(
@@ -150,6 +158,7 @@ public class TestData {
                         .symbol("HSBC")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#DB0011")
                         .build()
         );
         shareRepository.save(
@@ -159,6 +168,7 @@ public class TestData {
                         .symbol("JPM")
                         .exchange("NYSE")
                         .price(100)
+                        .colour("#003594")
                         .build()
         );
     }
@@ -204,26 +214,16 @@ public class TestData {
         * */
         orderRepository.save(
                 Order.builder()
-                        .id(1)
-                        .user(userService.findById(1))
-                        .share(shareRepository.findById(1).orElse(null))
-                        .orderType(orderTypeRepository.findById(1).orElse(null))
-                        .quantity(4)
-                        .price(200)
-                        .status(orderStatusRepository.findById(1).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(1)))
-                        .build()
-        );
-        orderRepository.save(
-                Order.builder()
                         .id(2)
                         .user(userService.findById(1))
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(2)
+                        .originalQuantity(2)
                         .price(100)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(4)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.JULY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JULY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -233,9 +233,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(2).orElse(null))
                         .quantity(9)
+                        .originalQuantity(9)
                         .price(1000)
                         .status(orderStatusRepository.findById(3).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(5)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -245,9 +247,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(2)
+                        .originalQuantity(2)
                         .price(54)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(10)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -257,9 +261,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(4)
+                        .originalQuantity(4)
                         .price(76)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(30)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -269,9 +275,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(34)
+                        .originalQuantity(34)
                         .price(15)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(65)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -281,9 +289,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(37)
+                        .originalQuantity(37)
                         .price(35)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(100)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -293,9 +303,11 @@ public class TestData {
                         .share(shareRepository.findById(1).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(31)
+                        .originalQuantity(31)
                         .price(20)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(145)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
 
@@ -312,9 +324,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(2).orElse(null))
                         .quantity(9)
+                        .originalQuantity(9)
                         .price(154.73)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(300)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JUNE, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -324,9 +338,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(2)
+                        .originalQuantity(2)
                         .price(130)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(250)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MAY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -336,9 +352,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(4)
+                        .originalQuantity(4)
                         .price(174.55)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(150)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.APRIL, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -348,9 +366,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(34)
+                        .originalQuantity(34)
                         .price(126.36)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(65)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.MARCH, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -360,9 +380,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(37)
-                        .price(148.50)
+                        .originalQuantity(37)
+                        .price(168.50)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(10)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.FEBRUARY, 11).getTime())
                         .build()
         );
         orderRepository.save(
@@ -372,9 +394,11 @@ public class TestData {
                         .share(shareRepository.findById(2).orElse(null))
                         .orderType(orderTypeRepository.findById(1).orElse(null))
                         .quantity(37)
+                        .originalQuantity(37)
                         .price(178.96)
                         .status(orderStatusRepository.findById(2).orElse(null))
-                        .date(String.valueOf(LocalDate.now().minusDays(270)))
+                        .createdAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
+                        .updatedAt(new GregorianCalendar(2022, Calendar.JANUARY, 11).getTime())
                         .build()
         );
     }
@@ -391,8 +415,40 @@ public class TestData {
         userShareRepository.save(
                 UserShare.builder()
                         .id(2)
-                        .share(shareRepository.findById(1).orElse(null))
+                        .share(shareRepository.findById(2).orElse(null))
                         .user(userService.findById(1))
+                        .quantity(5)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(3)
+                        .share(shareRepository.findById(3).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(2)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(4)
+                        .share(shareRepository.findById(4).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(2)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(5)
+                        .share(shareRepository.findById(5).orElse(null))
+                        .user(userService.findById(1))
+                        .quantity(1)
+                        .build()
+        );
+        userShareRepository.save(
+                UserShare.builder()
+                        .id(6)
+                        .share(shareRepository.findById(1).orElse(null))
+                        .user(userService.findById(2))
                         .quantity(1)
                         .build()
         );

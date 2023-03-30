@@ -47,7 +47,7 @@ public class Users {
                 .password(password)
                 .build();
 
-        return userService.saveUser(user);
+        return userService.encodeAndSave(user);
     }
 
     @GetMapping("/{id}")
@@ -71,8 +71,13 @@ public class Users {
     }
 
     @GetMapping("/{username}/{shareId}")
-    public List<UserShare> userShares(@PathVariable String username, @PathVariable Integer shareId) {
+    public UserShare userShares(@PathVariable String username, @PathVariable Integer shareId) {
         return userService.userShare(username, shareId);
+    }
+
+    @GetMapping("/{username}/balance")
+    public Double userBalance(@PathVariable String username) {
+        return userService.userBalance(username);
     }
 
     @GetMapping("/{id}/orders")

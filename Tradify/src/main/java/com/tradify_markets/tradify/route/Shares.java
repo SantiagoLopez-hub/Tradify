@@ -2,9 +2,11 @@ package com.tradify_markets.tradify.route;
 
 import com.tradify_markets.tradify.model.Order;
 import com.tradify_markets.tradify.model.Share;
-import com.tradify_markets.tradify.repository.ShareRepository;
+import com.tradify_markets.tradify.model.UserShare;
 import com.tradify_markets.tradify.service.OrderService;
 import com.tradify_markets.tradify.service.ShareService;
+import com.tradify_markets.tradify.service.UserService;
+import com.tradify_markets.tradify.service.UserShareService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class Shares {
     private final ShareService shareService;
     private final OrderService orderService;
+    private final UserShareService userShareService;
 
     @GetMapping
     public List<Share> shares() {
@@ -25,6 +28,11 @@ public class Shares {
     @GetMapping("/{id}")
     public Share getShare(@PathVariable Integer id) {
         return shareService.findById(id);
+    }
+
+    @GetMapping("/user/{username}")
+    public List<UserShare> getSharesByUser(@PathVariable String username) {
+        return userShareService.findByUsername(username);
     }
 
     @GetMapping("/{id}/trading-history")
