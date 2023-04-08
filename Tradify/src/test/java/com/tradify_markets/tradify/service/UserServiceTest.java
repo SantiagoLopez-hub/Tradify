@@ -2,6 +2,7 @@ package com.tradify_markets.tradify.service;
 
 import com.tradify_markets.tradify.model.*;
 import com.tradify_markets.tradify.repository.UserRepository;
+import com.tradify_markets.tradify.utility.LetterColour;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,6 @@ class UserServiceTest {
     private OrderService orderService;
     @Mock
     private PasswordEncoder passwordEncoder;
-
-    private final String GREEN_LETTERS = "\u001B[32m";
-    private final String RESET_LETTERS = "\u001B[0m";
 
     @BeforeEach
     public void setUp() {
@@ -65,8 +63,12 @@ class UserServiceTest {
         verify(users).size();
         assertEquals(3, users.size());
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + 3 + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " + users.size() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Expected Value: " + 3 +
+                LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Actual Value: " + users.size() +
+                LetterColour.RESET.getColour());
     }
 
     @Test
@@ -81,8 +83,12 @@ class UserServiceTest {
         // Then
         assertEquals(user, userService.encodeAndSave(user));
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " + userService.encodeAndSave(user).getUsername() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Expected Value: " + user.getUsername() +
+                LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Actual Value: " + userService.encodeAndSave(user).getUsername() +
+                LetterColour.RESET.getColour());
     }
 
     @Test
@@ -97,9 +103,12 @@ class UserServiceTest {
         // Then
         assertEquals(user, userService.findByUsername(user.getUsername()));
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.findByUsername(user.getUsername()).getUsername() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Expected Value: " + user.getUsername() +
+                LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Actual Value: " + userService.findByUsername(user.getUsername()).getUsername() +
+                LetterColour.RESET.getColour());
     }
 
     @Test
@@ -114,9 +123,10 @@ class UserServiceTest {
         // Then
         assertEquals(user, userService.findById(user.getId()));
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getId() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.findById(user.getId()).getId() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() +
+                "Expected Value: " + user.getId() + LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() + "Actual Value: " +
+                userService.findById(user.getId()).getId() + LetterColour.RESET.getColour());
     }
 
     @Test
@@ -134,9 +144,10 @@ class UserServiceTest {
         // Then
         assertEquals(user.getEmail(), userService.updateUser(user.getId(), user2).getEmail());
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getEmail() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.updateUser(user.getId(), user2).getEmail() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() + "Expected Value: " +
+                user.getEmail() + LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() + "Actual Value: " +
+                userService.updateUser(user.getId(), user2).getEmail() + LetterColour.RESET.getColour());
     }
 
     @Test
@@ -175,9 +186,10 @@ class UserServiceTest {
         // Then
         assertEquals(userShares, userService.userShares(user.getId()));
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + userShares + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.userShares(user.getId()) + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() + "Expected Value: "
+                + userShares + LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() + "Actual Value: " +
+                userService.userShares(user.getId()) + LetterColour.RESET.getColour());
     }
 
     @Test
@@ -204,9 +216,10 @@ class UserServiceTest {
         // Then
         assertEquals(orders, userService.userOrders(user.getId()));
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + orders + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.userOrders(user.getId()) + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() + "Expected Value: "
+                + orders + LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() + "Actual Value: " +
+                userService.userOrders(user.getId()) + LetterColour.RESET.getColour());
     }
 
     @Test
@@ -221,9 +234,10 @@ class UserServiceTest {
         // Then
         assertEquals(user.getUsername(), userRepository.findByUsername(user.getUsername()).getUsername());
 
-        System.out.println(GREEN_LETTERS + "Expected Value: " + user.getUsername() + RESET_LETTERS);
-        System.out.println(GREEN_LETTERS + "Actual Value: " +
-                userService.loadUserByUsername(user.getUsername()).getUsername() + RESET_LETTERS);
+        System.out.println(LetterColour.GREEN.getColour() + "Expected Value: " +
+                user.getUsername() + LetterColour.RESET.getColour());
+        System.out.println(LetterColour.GREEN.getColour() + "Actual Value: " +
+                userService.loadUserByUsername(user.getUsername()).getUsername() + LetterColour.RESET.getColour());
     }
 
     private User createUser(Integer id) {
